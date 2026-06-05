@@ -41,14 +41,14 @@ function initMenu(){
 }
 
 const accentPresets=[
-  {h:352,name:'Crimson',label:'Default red'},
-  {h:18,name:'Coral',label:'Warm coral'},
-  {h:42,name:'Amber',label:'Golden amber'},
-  {h:86,name:'Lime',label:'Sharp lime'},
-  {h:146,name:'Emerald',label:'Cold green'},
-  {h:182,name:'Cyan',label:'Signal cyan'},
-  {h:224,name:'Azure',label:'Deep blue'},
-  {h:282,name:'Violet',label:'Electric violet'}
+  {h:0,name:'Red',label:'Pure red'},
+  {h:30,name:'Coral',label:'Warm coral'},
+  {h:60,name:'Amber',label:'Golden amber'},
+  {h:120,name:'Emerald',label:'Cold green'},
+  {h:180,name:'Cyan',label:'Signal cyan'},
+  {h:240,name:'Azure',label:'Deep blue'},
+  {h:300,name:'Violet',label:'Electric violet'},
+  {h:352,name:'Crimson',label:'Default red'}
 ];
 
 function getAccentInfo(value){
