@@ -1093,3 +1093,166 @@ body::before{
   .log-entry{grid-template-columns:1fr;gap:6px}
   .about-spec div{grid-template-columns:1fr}
 }
+
+
+/* ===== V9 fixes: rhythm, academic layout, non-uniform moving lines ===== */
+
+/* Irregular observation-line background: less square grid, faster movement, occasional glowing nodes */
+.site-field{
+  opacity:.86;
+  background-image:
+    linear-gradient(90deg,transparent 0 7.8%,rgba(226,222,218,.11) 7.86%,transparent 7.95% 19.7%,rgba(226,222,218,.05) 19.78%,transparent 19.88% 44.2%,rgba(226,222,218,.10) 44.28%,transparent 44.38% 71.6%,rgba(226,222,218,.06) 71.68%,transparent 71.78%),
+    linear-gradient(0deg,transparent 0 13.4%,rgba(226,222,218,.08) 13.48%,transparent 13.58% 31.8%,rgba(226,222,218,.12) 31.88%,transparent 31.98% 63.1%,rgba(226,222,218,.055) 63.18%,transparent 63.28% 82.4%,rgba(226,222,218,.09) 82.48%,transparent 82.58%),
+    repeating-linear-gradient(90deg,transparent 0 23px,rgba(214,209,204,.026) 23px 24px,transparent 24px 59px),
+    repeating-linear-gradient(0deg,transparent 0 31px,rgba(214,209,204,.022) 31px 32px,transparent 32px 71px);
+  background-size:137vw 100%,100% 119vh,173px 100%,100% 211px;
+  background-position:0 0,0 0,0 0,0 0;
+  animation:fieldShift 14s linear infinite alternate;
+}
+.site-field::before{
+  inset:0;
+  opacity:.72;
+  background:
+    radial-gradient(circle at 7.85% 31.88%,rgba(238,235,231,.82) 0 1px,rgba(238,235,231,.30) 1px 2px,transparent 4px),
+    radial-gradient(circle at 44.28% 13.48%,rgba(238,235,231,.72) 0 1px,rgba(238,235,231,.24) 1px 2px,transparent 4px),
+    radial-gradient(circle at 71.68% 82.48%,rgba(238,235,231,.68) 0 1px,rgba(238,235,231,.22) 1px 2px,transparent 4px),
+    radial-gradient(circle at 19.78% 63.18%,var(--red-glow) 0 1px,rgba(238,235,231,.16) 1px 3px,transparent 6px);
+  animation:nodeBlink 5.2s ease-in-out infinite alternate;
+}
+.site-field::after{
+  inset:0;
+  opacity:.82;
+  background:
+    linear-gradient(90deg,transparent 0 9.5%,rgba(240,238,235,.72) 9.54%,rgba(240,238,235,.10) 9.70%,transparent 10.2%),
+    linear-gradient(90deg,transparent 0 53.2%,rgba(240,238,235,.46) 53.24%,rgba(240,238,235,.08) 53.36%,transparent 53.9%),
+    linear-gradient(0deg,transparent 0 21.6%,rgba(240,238,235,.58) 21.64%,rgba(240,238,235,.09) 21.78%,transparent 22.2%),
+    linear-gradient(0deg,transparent 0 69.4%,rgba(240,238,235,.36) 69.44%,rgba(240,238,235,.08) 69.58%,transparent 70.0%);
+  animation:gridDrift 15s linear infinite alternate;
+}
+@keyframes fieldShift{
+  from{background-position:-2vw 0,0 -1vh,-24px 0,0 -36px}
+  to{background-position:2vw 0,0 1vh,42px 0,0 48px}
+}
+@keyframes nodeBlink{
+  0%,35%{opacity:.26;filter:brightness(.85)}
+  55%{opacity:.82;filter:brightness(1.35)}
+  100%{opacity:.42;filter:brightness(1)}
+}
+
+/* Bug 1: PC homepage title / Japanese name overlap */
+.home-title-block h1{
+  line-height:.84;
+  letter-spacing:-.095em;
+}
+.jp-name{
+  margin:34px 0 38px;
+  line-height:1.18;
+}
+
+/* Bug 2: section rail should not create a huge first-row height before images */
+.section-rail{
+  grid-row:1 / span 2;
+}
+.editorial-section{
+  row-gap:0;
+}
+.section-intro{
+  margin-bottom:22px;
+}
+
+/* Bug 3: project subsection titles belong to the content column, not the left rail */
+.project-note{
+  grid-column:2;
+  writing-mode:horizontal-tb;
+}
+.project-note h3,
+.project-note p,
+.project-note span{
+  writing-mode:horizontal-tb;
+  transform:none;
+}
+
+/* Bug 4: preserve original image ratios in academic gallery.
+   Use editorial-column masonry instead of cropped fixed boxes. */
+.editorial-wall{
+  grid-column:2;
+  display:block;
+  column-gap:16px;
+}
+.large-wall{columns:3 320px;}
+.drawing-wall{columns:4 220px;}
+.print-wall{columns:3 260px;}
+.research-wall{columns:3 260px;}
+
+.editorial-image,
+.editorial-image.feature,
+.editorial-image.panorama,
+.editorial-image.tall,
+.editorial-image.wide,
+.editorial-image.mini,
+.editorial-image.print,
+.editorial-image.research,
+.large-wall .editorial-image:nth-child(n),
+.drawing-wall .editorial-image:nth-child(n),
+.research-wall .editorial-image:nth-child(n),
+.print-wall .editorial-image:nth-child(n){
+  display:block;
+  break-inside:avoid;
+  page-break-inside:avoid;
+  margin:0 0 16px;
+  grid-column:auto;
+  grid-row:auto;
+}
+.editorial-image .gallery-open{
+  height:auto;
+  min-height:0;
+  background:#070708;
+  display:block;
+}
+.editorial-image .gallery-open img{
+  width:100%;
+  height:auto;
+  object-fit:contain;
+  display:block;
+}
+.editorial-image .gallery-open::after{
+  background:linear-gradient(180deg,rgba(0,0,0,.01),rgba(0,0,0,.20));
+  opacity:.28;
+}
+.editorial-image .gallery-open:hover::after{opacity:.06}
+
+/* Give some deliberate rhythm without cropping */
+.large-wall .editorial-image:nth-child(1),
+.large-wall .editorial-image:nth-child(4),
+.drawing-wall .editorial-image:nth-child(1),
+.drawing-wall .editorial-image:nth-child(8),
+.drawing-wall .editorial-image:nth-child(16){
+  margin-bottom:24px;
+}
+.drawing-wall .editorial-image:nth-child(5),
+.drawing-wall .editorial-image:nth-child(13),
+.drawing-wall .editorial-image:nth-child(21){
+  transform:translateY(22px);
+}
+.large-wall .editorial-image:nth-child(2),
+.large-wall .editorial-image:nth-child(7),
+.research-wall .editorial-image:nth-child(3){
+  transform:translateY(18px);
+}
+
+@media(max-width:1100px){
+  .section-rail{grid-row:auto}
+  .project-note{grid-column:1}
+  .editorial-wall{grid-column:1}
+}
+@media(max-width:760px){
+  .large-wall,.drawing-wall,.print-wall,.research-wall{columns:2 160px}
+  .drawing-wall .editorial-image:nth-child(n),
+  .large-wall .editorial-image:nth-child(n),
+  .research-wall .editorial-image:nth-child(n){
+    transform:none;
+  }
+}
+@media(max-width:520px){
+  .large-wall,.drawing-wall,.print-wall,.research-wall{columns:1}
+}
