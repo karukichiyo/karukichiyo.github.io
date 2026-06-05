@@ -198,6 +198,17 @@ function initLightbox(){
   });
 }
 
+
+function initEditorialMotion(){
+  const root=document.documentElement;
+  window.addEventListener('pointermove',e=>{
+    const x=(e.clientX/window.innerWidth*100).toFixed(2);
+    const y=(e.clientY/window.innerHeight*100).toFixed(2);
+    root.style.setProperty('--pointer-x',`${x}%`);
+    root.style.setProperty('--pointer-y',`${y}%`);
+  },{passive:true});
+}
+
 document.addEventListener('DOMContentLoaded',()=>{
   const y=document.getElementById('year');
   if(y)y.textContent=new Date().getFullYear();
@@ -207,4 +218,5 @@ document.addEventListener('DOMContentLoaded',()=>{
   initMenu();
   createThemeWidget();
   initLightbox();
+  initEditorialMotion();
 });

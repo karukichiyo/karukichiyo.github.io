@@ -31,62 +31,82 @@
       <button type="button" data-lang="en">EN</button>
     </div>
   </header>
-  <main>
-    <section class="gate hero-section reveal">
-      <div class="hero-copy">
+  
+  <main class="site-editorial home-editorial">
+    <section class="home-cover">
+      <div class="home-title-block">
         <p class="eyebrow" data-i18n="homeEyebrow">Personal Art Archive</p>
-        <h1>Xintong Dang<br><span>トウ シンドウ</span></h1>
-        <p class="hero-lead" data-i18n="homeLead">一个整理油画、数字图像、原创角色与制作记录的个人创作档案。</p>
-        <div class="hero-actions">
-          <a class="button primary" href="academic.html" data-i18n="enterArchive">Enter Archive</a>
-          <a class="button ghost" href="about.html" data-i18n="viewProfile">View Profile</a>
-        </div>
+        <h1>Xintong<br>Dang</h1>
+        <p class="jp-name">トウ シンドウ</p>
+        <p class="home-manifesto" data-i18n="homeLead">一个整理油画、数字图像、原创角色与制作记录的个人创作档案。</p>
       </div>
-      <aside class="signal-panel" aria-label="Archive status">
-        <div class="signal-ring"><span>XD</span></div>
-        <dl>
-          <div><dt data-i18n="signal01">FIELD</dt><dd>Painting / Visual Expression</dd></div>
-          <div><dt data-i18n="signal02">TOOLS</dt><dd>Oil / CSP / Procreate</dd></div>
-          <div><dt data-i18n="signal03">STATUS</dt><dd>Archive in progress</dd></div>
-        </dl>
-      </aside>
+      <div class="home-constellation" aria-label="Selected image constellation">
+        <a class="home-image h-big" href="academic.html#large-works" data-preview="33">
+      <img src="assets/images/academic/33.jpg" alt="Large-scale Painting 33" loading="lazy">
+      <span>33</span>
+    </a>
+        <a class="home-image h-wide" href="academic.html#large-works" data-preview="38">
+      <img src="assets/images/academic/38.jpg" alt="Large-scale Painting 38" loading="lazy">
+      <span>38</span>
+    </a>
+        <a class="home-image h-small" href="academic.html#large-works" data-preview="10">
+      <img src="assets/images/academic/10.jpg" alt="One Thousand Drawings 10" loading="lazy">
+      <span>10</span>
+    </a>
+        <a class="home-image h-print" href="academic.html#large-works" data-preview="01">
+      <img src="assets/images/academic/1.jpg" alt="Etching Works 01" loading="lazy">
+      <span>01</span>
+    </a>
+        <a class="home-image h-tall" href="academic.html#large-works" data-preview="22">
+      <img src="assets/images/academic/22.jpg" alt="One Thousand Drawings 22" loading="lazy">
+      <span>22</span>
+    </a>
+        <a class="home-image h-note" href="academic.html#large-works" data-preview="04">
+      <img src="assets/images/academic/4.jpg" alt="Sketch Note 04" loading="lazy">
+      <span>04</span>
+    </a>
+      </div>
+      <div class="home-status">
+        <span>FIELD / PAINTING</span>
+        <span>TOOLS / OIL · CSP · PROCREATE</span>
+        <span>ARCHIVE / IN PROGRESS</span>
+      </div>
     </section>
 
-    <section class="portal-grid page-section">
-      <a class="portal-card reveal" href="academic.html">
-        <span class="card-index">01</span>
+    <section class="editorial-portals">
+      <a href="academic.html" class="portal-line">
+        <span>01</span>
         <h2 data-i18n="portalAcademicTitle">Academic Archive</h2>
         <p data-i18n="portalAcademicDesc">东京造形大学期间的油画、课程项目与展示记录。</p>
       </a>
-      <a class="portal-card reveal" href="independent.html">
-        <span class="card-index">02</span>
+      <a href="independent.html" class="portal-line">
+        <span>02</span>
         <h2 data-i18n="portalIndependentTitle">Independent Works</h2>
         <p data-i18n="portalIndependentDesc">校外平台作品、数字绘画与个人项目。</p>
       </a>
-      <a class="portal-card reveal" href="characters.html">
-        <span class="card-index">03</span>
+      <a href="characters.html" class="portal-line">
+        <span>03</span>
         <h2 data-i18n="portalCharacterTitle">Character Archive</h2>
         <p data-i18n="portalCharacterDesc">原创角色、服装设计、设定图与世界观记录。</p>
       </a>
-      <a class="portal-card reveal" href="notes.html">
-        <span class="card-index">04</span>
+      <a href="notes.html" class="portal-line">
+        <span>04</span>
         <h2 data-i18n="portalNotesTitle">Observation Log</h2>
         <p data-i18n="portalNotesDesc">制作笔记、观看记录、作品概念和过程思考。</p>
       </a>
     </section>
 
-    <section class="selected page-section reveal">
-      <div class="section-heading">
-        <p class="eyebrow" data-i18n="selectedEyebrow">Selected Works</p>
-        <h2 data-i18n="selectedTitle">代表作品入口</h2>
-      </div>
-      <div class="feature-strip">
-        <a href="academic.html" class="feature-item"><span>Oil Painting</span><b>Academic</b></a>
-        <a href="characters.html" class="feature-item"><span>Original Character</span><b>Character</b></a>
-        <a href="notes.html" class="feature-item"><span>Process / Text</span><b>Notes</b></a>
+    <section class="home-feature-strip">
+      <div class="strip-track">
+        <span>PERSONAL ART ARCHIVE</span>
+        <span>OIL PAINTING</span>
+        <span>DIGITAL IMAGE</span>
+        <span>CHARACTER DESIGN</span>
+        <span>OBSERVATION LOG</span>
       </div>
     </section>
   </main>
+
   <footer class="site-footer">
     <p>© <span id="year"></span> Xintong Dang / トウ シンドウ</p>
     <p class="footer-tagline">Personal Art Archive</p>
