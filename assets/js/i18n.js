@@ -41,30 +41,45 @@ function initMenu(){
 }
 
 const accentPresets=[
-  {h:352,name:'Crimson',label:'Default red',swatch:'#ff4a67'},
-  {h:12,name:'Coral',label:'Warm coral',swatch:'#ff8f3e'},
-  {h:38,name:'Amber',label:'Amber',swatch:'#f4ba3a'},
-  {h:84,name:'Lime',label:'Lime',swatch:'#b8e94a'},
-  {h:146,name:'Emerald',label:'Emerald',swatch:'#3ef25e'},
-  {h:182,name:'Cyan',label:'Cyan',swatch:'#2fded8'},
-  {h:224,name:'Azure',label:'Azure',swatch:'#3a70ff'},
-  {h:282,name:'Violet',label:'Violet',swatch:'#9438f1'}
+  {h:352,name:'Crimson',label:'Default red'},
+  {h:18,name:'Coral',label:'Warm coral'},
+  {h:42,name:'Amber',label:'Golden amber'},
+  {h:86,name:'Lime',label:'Sharp lime'},
+  {h:146,name:'Emerald',label:'Cold green'},
+  {h:182,name:'Cyan',label:'Signal cyan'},
+  {h:224,name:'Azure',label:'Deep blue'},
+  {h:282,name:'Violet',label:'Electric violet'}
 ];
 
+function getAccentInfo(value){
+  return accentPresets.reduce((best,item)=>Math.abs(item.h-value)<Math.abs(best.h-value)?item:best,accentPresets[0]);
+}
+
 function setAccentHue(hue){
-  const value=Math.max(0,Math.min(360,Number(hue)||352));
+  const value=((Number(hue)%360)+360)%360;
   document.documentElement.style.setProperty('--accent-h',value);
+  document.documentElement.style.setProperty('--marker-angle',value);
   localStorage.setItem('accentHue',String(value));
-  const current=accentPresets.reduce((best,item)=>Math.abs(item.h-value)<Math.abs(best.h-value)?item:best,accentPresets[0]);
+  const current=getAccentInfo(value);
   const valueLabel=document.querySelector('.theme-value');
   const centerName=document.querySelector('.theme-current-name');
   const centerLabel=document.querySelector('.theme-current-label');
-  if(valueLabel) valueLabel.textContent=current.name;
+  if(valueLabel) valueLabel.textContent=`${Math.round(value)}°`;
   if(centerName) centerName.textContent=current.name;
-  if(centerLabel) centerLabel.textContent=current.label;
-  document.querySelectorAll('.wheel-pick').forEach(btn=>{
-    btn.classList.toggle('active',Number(btn.dataset.h)===current.h);
-  });
+  if(centerLabel) centerLabel.textContent=`${Math.round(value)}° · ${current.label}`;
+  const wheel=document.querySelector('.theme-wheel-large');
+  if(wheel) wheel.setAttribute('aria-valuenow',String(Math.round(value)));
+}
+
+
+function updateHueFromPointer(event, wheel){
+  const rect=wheel.getBoundingClientRect();
+  const cx=rect.left + rect.width/2;
+  const cy=rect.top + rect.height/2;
+  const dx=event.clientX - cx;
+  const dy=event.clientY - cy;
+  const angle=(Math.atan2(dy, dx) * 180 / Math.PI + 90 + 360) % 360;
+  setAccentHue(angle);
 }
 
 function createThemeWidget(){
@@ -72,19 +87,20 @@ function createThemeWidget(){
   widget.className='theme-widget';
   widget.innerHTML=`
     <div class="theme-panel" aria-hidden="true">
-      <div class="theme-label"><span>Accent color</span><span class="theme-value">Crimson</span></div>
+      <div class="theme-label"><span>Accent color</span><span class="theme-value">352°</span></div>
       <div class="theme-wheel-wrap">
-        <div class="theme-wheel-large" aria-hidden="true"></div>
+        <div class="theme-wheel-large" aria-label="Accent color wheel" role="slider" aria-valuemin="0" aria-valuemax="359" aria-valuenow="352" tabindex="0"></div>
+        <div class="wheel-guide" aria-hidden="true"></div>
+        <div class="wheel-marker" aria-hidden="true"></div>
         <div class="theme-center">
           <div>
             <small>accent</small>
             <strong class="theme-current-name">Crimson</strong>
-            <em class="theme-current-label">Default red</em>
+            <em class="theme-current-label">352° · Default red</em>
           </div>
         </div>
-        ${accentPresets.map((item,index)=>`<button class="wheel-pick" type="button" data-h="${item.h}" aria-label="${item.name}" style="--angle:${index*45}deg; --swatch:${item.swatch}"></button>`).join('')}
       </div>
-      <p class="theme-note">Click a point on the wheel to change the accent color. Silver and black stay fixed.</p>
+      <p class="theme-note">Click or drag on the ring to change the accent color. Silver and black stay fixed.</p>
     </div>
     <button class="theme-toggle" type="button" aria-label="Accent color settings" aria-expanded="false">
       <span class="color-wheel" aria-hidden="true"></span>
@@ -93,7 +109,7 @@ function createThemeWidget(){
 
   const panel=widget.querySelector('.theme-panel');
   const toggle=widget.querySelector('.theme-toggle');
-  const picks=widget.querySelectorAll('.wheel-pick');
+  const wheel=widget.querySelector('.theme-wheel-large');
 
   toggle.addEventListener('click',e=>{
     e.stopPropagation();
@@ -101,7 +117,18 @@ function createThemeWidget(){
     panel.setAttribute('aria-hidden',open?'false':'true');
     toggle.setAttribute('aria-expanded',open?'true':'false');
   });
-  picks.forEach(btn=>btn.addEventListener('click',()=>setAccentHue(btn.dataset.h)));
+  let dragging=false;
+  const onPointerMove=e=>{ if(dragging) updateHueFromPointer(e,wheel); };
+  wheel.addEventListener('pointerdown',e=>{ dragging=true; wheel.setPointerCapture(e.pointerId); updateHueFromPointer(e,wheel); });
+  wheel.addEventListener('pointermove',onPointerMove);
+  wheel.addEventListener('pointerup',e=>{ dragging=false; wheel.releasePointerCapture?.(e.pointerId); });
+  wheel.addEventListener('pointercancel',()=>{ dragging=false; });
+  wheel.addEventListener('click',e=>updateHueFromPointer(e,wheel));
+  wheel.addEventListener('keydown',e=>{
+    const current=Number(localStorage.getItem('accentHue')||352);
+    if(e.key==='ArrowRight' || e.key==='ArrowUp'){ e.preventDefault(); setAccentHue(current+2); }
+    if(e.key==='ArrowLeft' || e.key==='ArrowDown'){ e.preventDefault(); setAccentHue(current-2); }
+  });
   document.addEventListener('click',e=>{
     if(!widget.contains(e.target)){
       panel.classList.remove('open');
