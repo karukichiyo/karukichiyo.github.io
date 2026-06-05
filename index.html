@@ -3,68 +3,93 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Xintong Dang | Portfolio</title>
-  <meta name="description" content="Xintong Dang / トウシンドウ multilingual art portfolio." />
+  <meta name="description" content="Xintong Dang / トウ シンドウ multilingual personal art archive." />
   <link rel="stylesheet" href="assets/css/style.css" />
+  <title>Home | Xintong Dang</title>
 </head>
-<body data-page="home">
-  <div class="site-noise" aria-hidden="true"></div>
+<body data-page="index">
+  <div class="site-field" aria-hidden="true"></div>
   <header class="site-header">
     <a class="brand" href="index.html" aria-label="Home">
       <span class="brand-mark">XD</span>
-      <span>Xintong Dang</span>
+      <span class="brand-text">Xintong Dang</span>
     </a>
+    <button class="menu-toggle" type="button" aria-label="Menu" aria-expanded="false">☰</button>
     <nav class="nav" aria-label="Main navigation">
-      <a href="index.html" aria-current="page" data-i18n="navHome">首页</a>
-      <a href="school.html" data-i18n="navSchool">学校作品</a>
-      <a href="independent.html" data-i18n="navIndependent">个人创作</a>
-      <a href="about.html" data-i18n="navAbout">关于我</a>
-      <a href="contact.html" data-i18n="navContact">联系</a>
+      <a href="index.html" aria-current="page" data-i18n="navHome">HOME</a>
+      <a href="academic.html"  data-i18n="navAcademic">ACADEMIC</a>
+      <a href="independent.html"  data-i18n="navIndependent">INDEPENDENT</a>
+      <a href="characters.html"  data-i18n="navCharacters">CHARACTER</a>
+      <a href="notes.html"  data-i18n="navNotes">NOTES</a>
+      <a href="about.html"  data-i18n="navAbout">ABOUT</a>
+      <a href="contact.html"  data-i18n="navContact">CONTACT</a>
     </nav>
     <div class="language-switch" aria-label="Language switcher">
+      <span>LANG</span>
       <button type="button" data-lang="zh">中</button>
       <button type="button" data-lang="ja">日</button>
       <button type="button" data-lang="en">EN</button>
     </div>
   </header>
   <main>
-
-      <section class="hero page-section">
-        <div class="hero-copy reveal">
-          <p class="eyebrow" data-i18n="homeEyebrow">Portfolio / Painting / Character Creation</p>
-          <h1 data-i18n="homeTitle">在暗色空间中整理绘画、角色与视觉叙事</h1>
-          <p class="hero-text" data-i18n="homeLead">这里是 Xintong Dang 的个人艺术展示网站，收录学校中的油画创作、校外平台作品、个人动漫风格原创角色创作与联系方式。</p>
-          <div class="hero-actions">
-            <a class="btn btn-primary" href="school.html" data-i18n="viewSchool">查看学校作品</a>
-            <a class="btn btn-ghost" href="independent.html" data-i18n="viewIndependent">查看个人创作</a>
-          </div>
+    <section class="gate hero-section reveal">
+      <div class="hero-copy">
+        <p class="eyebrow" data-i18n="homeEyebrow">Personal Art Archive</p>
+        <h1>Xintong Dang<br><span>トウ シンドウ</span></h1>
+        <p class="hero-lead" data-i18n="homeLead">一个整理油画、数字图像、原创角色与制作记录的个人创作档案。</p>
+        <div class="hero-actions">
+          <a class="button primary" href="academic.html" data-i18n="enterArchive">Enter Archive</a>
+          <a class="button ghost" href="about.html" data-i18n="viewProfile">View Profile</a>
         </div>
-        <div class="hero-stage reveal" aria-label="Abstract portfolio visual">
-          <div class="orb orb-a"></div>
-          <div class="orb orb-b"></div>
-          <div class="frame-card main-frame">
-            <span class="frame-number">01</span>
-            <p data-i18n="visualText">Painting / Digital / Archive</p>
-          </div>
-          <div class="thin-line line-one"></div>
-          <div class="thin-line line-two"></div>
-        </div>
-      </section>
-      <section class="page-section compact-grid">
-        <a class="route-card reveal" href="school.html">
-          <span>01</span><h2 data-i18n="navSchool">学校作品</h2><p data-i18n="homeSchoolDesc">东京造形大学内的绘画、课程项目与展示记录。</p>
-        </a>
-        <a class="route-card reveal" href="independent.html">
-          <span>02</span><h2 data-i18n="navIndependent">个人创作</h2><p data-i18n="homeIndependentDesc">CSP、Procreate 创作的动漫风格原创角色与平台作品。</p>
-        </a>
-        <a class="route-card reveal" href="about.html">
-          <span>03</span><h2 data-i18n="navAbout">关于我</h2><p data-i18n="homeAboutDesc">学习背景、创作方向与个人简介。</p>
-        </a>
-      </section>
+      </div>
+      <aside class="signal-panel" aria-label="Archive status">
+        <div class="signal-ring"><span>XD</span></div>
+        <dl>
+          <div><dt data-i18n="signal01">FIELD</dt><dd>Painting / Visual Expression</dd></div>
+          <div><dt data-i18n="signal02">TOOLS</dt><dd>Oil / CSP / Procreate</dd></div>
+          <div><dt data-i18n="signal03">STATUS</dt><dd>Archive in progress</dd></div>
+        </dl>
+      </aside>
+    </section>
 
+    <section class="portal-grid page-section">
+      <a class="portal-card reveal" href="academic.html">
+        <span class="card-index">01</span>
+        <h2 data-i18n="portalAcademicTitle">Academic Archive</h2>
+        <p data-i18n="portalAcademicDesc">东京造形大学期间的油画、课程项目与展示记录。</p>
+      </a>
+      <a class="portal-card reveal" href="independent.html">
+        <span class="card-index">02</span>
+        <h2 data-i18n="portalIndependentTitle">Independent Works</h2>
+        <p data-i18n="portalIndependentDesc">校外平台作品、数字绘画与个人项目。</p>
+      </a>
+      <a class="portal-card reveal" href="characters.html">
+        <span class="card-index">03</span>
+        <h2 data-i18n="portalCharacterTitle">Character Archive</h2>
+        <p data-i18n="portalCharacterDesc">原创角色、服装设计、设定图与世界观记录。</p>
+      </a>
+      <a class="portal-card reveal" href="notes.html">
+        <span class="card-index">04</span>
+        <h2 data-i18n="portalNotesTitle">Observation Log</h2>
+        <p data-i18n="portalNotesDesc">制作笔记、观看记录、作品概念和过程思考。</p>
+      </a>
+    </section>
+
+    <section class="selected page-section reveal">
+      <div class="section-heading">
+        <p class="eyebrow" data-i18n="selectedEyebrow">Selected Works</p>
+        <h2 data-i18n="selectedTitle">代表作品入口</h2>
+      </div>
+      <div class="feature-strip">
+        <a href="academic.html" class="feature-item"><span>Oil Painting</span><b>Academic</b></a>
+        <a href="characters.html" class="feature-item"><span>Original Character</span><b>Character</b></a>
+        <a href="notes.html" class="feature-item"><span>Process / Text</span><b>Notes</b></a>
+      </div>
+    </section>
   </main>
   <footer class="site-footer">
     <p>© <span id="year"></span> Xintong Dang / トウ シンドウ</p>
+    <p class="footer-tagline">Personal Art Archive</p>
   </footer>
   <script src="assets/js/i18n.js"></script>
 </body>

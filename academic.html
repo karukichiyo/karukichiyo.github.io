@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Xintong Dang / トウ シンドウ multilingual personal art archive." />
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <title>Academic Archive | Xintong Dang</title>
+</head>
+<body data-page="academic">
+  <div class="site-field" aria-hidden="true"></div>
+  <header class="site-header">
+    <a class="brand" href="index.html" aria-label="Home">
+      <span class="brand-mark">XD</span>
+      <span class="brand-text">Xintong Dang</span>
+    </a>
+    <button class="menu-toggle" type="button" aria-label="Menu" aria-expanded="false">☰</button>
+    <nav class="nav" aria-label="Main navigation">
+      <a href="index.html"  data-i18n="navHome">HOME</a>
+      <a href="academic.html" aria-current="page" data-i18n="navAcademic">ACADEMIC</a>
+      <a href="independent.html"  data-i18n="navIndependent">INDEPENDENT</a>
+      <a href="characters.html"  data-i18n="navCharacters">CHARACTER</a>
+      <a href="notes.html"  data-i18n="navNotes">NOTES</a>
+      <a href="about.html"  data-i18n="navAbout">ABOUT</a>
+      <a href="contact.html"  data-i18n="navContact">CONTACT</a>
+    </nav>
+    <div class="language-switch" aria-label="Language switcher">
+      <span>LANG</span>
+      <button type="button" data-lang="zh">中</button>
+      <button type="button" data-lang="ja">日</button>
+      <button type="button" data-lang="en">EN</button>
+    </div>
+  </header>
+  <main>
+    <section class="page-title page-section reveal">
+      <p class="eyebrow" data-i18n="academicEyebrow">Academic Archive</p>
+      <h1 data-i18n="academicTitle">学校里的艺术创作</h1>
+      <p data-i18n="academicIntro">整理东京造形大学期间的油画、课程项目、展览记录、研究过程与作品说明。</p>
+    </section>
+    <section class="filter-bar page-section reveal" aria-label="Work filters">
+      <button class="filter active" data-filter="all">ALL</button>
+      <button class="filter" data-filter="oil">OIL PAINTING</button>
+      <button class="filter" data-filter="course">COURSE PROJECT</button>
+      <button class="filter" data-filter="process">PROCESS</button>
+    </section>
+    <section class="archive-grid page-section">
+      <article class="archive-card reveal" data-category="oil">
+        <div class="work-image"><span>01</span></div>
+        <div class="archive-meta"><p class="tag">Oil Painting</p><h2 data-i18n="workTitlePlaceholder">作品标题 / Work Title</h2><p data-i18n="academicCard01">材料、尺寸、年份、课程名、创作概念可以写在这里。</p></div>
+      </article>
+      <article class="archive-card reveal" data-category="course process">
+        <div class="work-image"><span>02</span></div>
+        <div class="archive-meta"><p class="tag">Course Project</p><h2 data-i18n="academicCard02Title">课程项目</h2><p data-i18n="academicCard02">可放置草图、过程照片、展示现场与最终作品。</p></div>
+      </article>
+      <article class="archive-card reveal" data-category="process">
+        <div class="work-image"><span>03</span></div>
+        <div class="archive-meta"><p class="tag">Research / Process</p><h2 data-i18n="academicCard03Title">研究记录</h2><p data-i18n="academicCard03">用于整理主题研究、文本、实验与创作脉络。</p></div>
+      </article>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <p>© <span id="year"></span> Xintong Dang / トウ シンドウ</p>
+    <p class="footer-tagline">Personal Art Archive</p>
+  </footer>
+  <script src="assets/js/i18n.js"></script>
+</body>
+</html>
