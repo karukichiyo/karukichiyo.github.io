@@ -53,3 +53,7 @@ assets/images/      放作品图片的位置
 5. Branch 选择 `main` 和 `/root`
 6. 保存后等待 GitHub Pages 生成网站
 
+
+
+## Background image
+The site uses `assets/images/background.jpg` as the shared dark background image. Replace that file to change the background across all pages.
