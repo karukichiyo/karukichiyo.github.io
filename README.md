@@ -57,3 +57,18 @@ assets/images/background.jpg
 4. Source 选择 Deploy from a branch
 5. Branch 选择 main / root
 6. 保存并等待生成网站
+
+
+## Academic image archive
+
+The academic gallery images are stored in:
+
+`assets/images/academic/`
+
+Current mapping:
+- `1.jpg`–`3.jpg`: Course Projects 02 / Etching Works
+- `10.jpg`–`32.jpg`: Course Projects 02 / １千枚ドローイング
+- `4.jpg`–`9.jpg`: Research Notes 03
+- `33.jpg`–`43.jpg`: Large-scale Paintings 01
+
+Lightbox metadata is defined in `academic.html` inside each `.gallery-open` button.
