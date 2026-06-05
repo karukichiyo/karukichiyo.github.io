@@ -1,39 +1,55 @@
-# Karuki Portfolio Site
+# Xintong Dang / トウ シンドウ Portfolio Site
 
-这是一个可直接部署到 GitHub Pages 的三语个人艺术作品集网站模板。
+这是一个多页面、深色主题、三语（中文 / 日本語 / English）的 GitHub Pages 静态个人作品集网站。
 
-## 文件结构
+## 页面结构
 
 ```text
-index.html
+index.html          首页
+school.html         学校作品
+independent.html    校外作品 / 个人原创角色创作
+about.html          关于我
+contact.html        联系方式
 assets/css/style.css
 assets/js/i18n.js
-assets/images/
+assets/images/      放作品图片的位置
 ```
 
-## 如何替换内容
+## 已写入的信息
 
-1. 把作品图片放进 `assets/images/`。
-2. 在 `index.html` 中，把 `.image-placeholder` 替换成图片，例如：
+- Name: Xintong Dang / トウ シンドウ
+- School: Tokyo Zokei University / 東京造形大学
+- Major: 造形学部 美術学科 絵画専攻領域
+- Practice: 油画；同时使用 Clip Studio Paint 与 Procreate 进行个人动漫风格原创角色创作
+- Email: `paperfox4254545544 [at] gmail.com`，页面中没有直接显示 @
+- Links: 小红书 / Instagram / 米画师
+
+## 替换作品图片的方法
+
+把图片放入 `assets/images/`，然后把页面里的占位块：
 
 ```html
-<img src="assets/images/work-01.jpg" alt="作品标题" />
+<div class="work-image"><span>01</span></div>
 ```
 
-3. 在 `assets/js/i18n.js` 中修改中日英三种语言的标题、介绍、作品说明。
-4. 把联系方式里的 `your-email@example.com` 改成你的邮箱。
-5. 把平台链接的 `href="#"` 改成 Instagram、Pixiv、ArtStation、X、个人项目页等真实链接。
+替换为：
 
-## GitHub Pages 部署方法
-
-1. 新建仓库，仓库名可以是：`你的用户名.github.io`。
-2. 上传本文件夹里的全部文件，不要只上传 zip。
-3. 进入 GitHub 仓库的 Settings → Pages。
-4. Source 选择 Deploy from a branch，Branch 选择 `main` / root。
-5. 保存后等待页面生成。
-
-如果仓库名是 `你的用户名.github.io`，网站地址通常是：
-
-```text
-https://你的用户名.github.io/
+```html
+<img class="work-photo" src="assets/images/work-01.jpg" alt="作品标题">
 ```
+
+如果要让图片样式更完整，可以在 `assets/css/style.css` 最后加入：
+
+```css
+.work-photo { width: 100%; border-radius: 18px; display: block; object-fit: cover; aspect-ratio: 4 / 3; }
+```
+
+## GitHub Pages 部署
+
+1. 新建 GitHub 仓库，推荐命名为：`你的用户名.github.io`
+2. 上传本文件夹内所有文件，不要只上传 zip
+3. 进入仓库 Settings → Pages
+4. Source 选择 `Deploy from a branch`
+5. Branch 选择 `main` 和 `/root`
+6. 保存后等待 GitHub Pages 生成网站
+

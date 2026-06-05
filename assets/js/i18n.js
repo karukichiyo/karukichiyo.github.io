@@ -1,80 +1,8 @@
-const translations = {
-  zh: {
-    navWorks: "作品", navPlatforms: "校外作品", navAbout: "关于我", navContact: "联系方式",
-    heroLabel: "艺术作品集 / Portfolio",
-    heroTitle: "以绘画、装置与视觉叙事构成的个人艺术档案",
-    heroDesc: "这里整理我在学校中的艺术创作、校外平台发布的作品，以及正在形成中的个人创作方向。",
-    viewWorks: "查看作品", contactMe: "联系我", mainImagePlaceholder: "主视觉图片",
-    schoolLabel: "School Works", schoolTitle: "学校里的艺术创作", schoolDesc: "可以放置绘画、版画、装置、课程项目、展览记录等作品。",
-    categoryPainting: "绘画 / Painting", categoryInstallation: "装置 / Installation", categoryResearch: "研究 / Research",
-    work1Title: "作品标题 01", work1Desc: "在这里写作品概念、材料、尺寸、年份，以及它与课程或个人问题意识的关系。",
-    work2Title: "作品标题 02", work2Desc: "这里适合放置空间、材料、观看方式、展示现场等说明。",
-    work3Title: "作品标题 03", work3Desc: "可以整理课堂研究、主题实验、草图、过程记录和最终作品。",
-    outsideLabel: "Outside Works", outsideTitle: "校外作品与平台", outsideDesc: "用于整理在社交平台、插画平台、游戏/角色设计相关平台、个人项目页面等地方发布过的作品。",
-    platform1: "平台链接 01", platform2: "平台链接 02", platform3: "平台链接 03",
-    aboutLabel: "About", aboutTitle: "关于我",
-    aboutText1: "我目前以绘画和视觉表达为中心进行创作，同时关注空间、结构、感知、身体经验与叙事系统之间的关系。",
-    aboutText2: "这个网站会持续整理我的学校作品、个人项目和校外平台上的创作记录，作为一个开放的艺术档案。",
-    portraitPlaceholder: "头像或个人照片", contactLabel: "Contact", contactTitle: "联系方式",
-    contactDesc: "如果需要作品合作、展览联系、委托或其他交流，可以通过以下方式联系我。"
-  },
-  ja: {
-    navWorks: "作品", navPlatforms: "学外作品", navAbout: "プロフィール", navContact: "連絡先",
-    heroLabel: "アートポートフォリオ / Portfolio",
-    heroTitle: "絵画、インスタレーション、視覚的な語りによる個人制作アーカイブ",
-    heroDesc: "学校で制作した作品、学外プラットフォームで発表した作品、そして現在形成されつつある個人の制作テーマをまとめるサイト。",
-    viewWorks: "作品を見る", contactMe: "連絡する", mainImagePlaceholder: "メインビジュアル",
-    schoolLabel: "School Works", schoolTitle: "学校での制作", schoolDesc: "絵画、版画、インスタレーション、授業課題、展示記録などを掲載できる。",
-    categoryPainting: "絵画 / Painting", categoryInstallation: "インスタレーション / Installation", categoryResearch: "リサーチ / Research",
-    work1Title: "作品タイトル 01", work1Desc: "作品のコンセプト、素材、サイズ、制作年、授業や自分の問題意識との関係を書く場所。",
-    work2Title: "作品タイトル 02", work2Desc: "空間、素材、鑑賞方法、展示風景などの説明に向いている。",
-    work3Title: "作品タイトル 03", work3Desc: "授業でのリサーチ、テーマ実験、スケッチ、制作過程、完成作品を整理できる。",
-    outsideLabel: "Outside Works", outsideTitle: "学外作品とプラットフォーム", outsideDesc: "SNS、イラスト投稿サイト、ゲーム・キャラクターデザイン関連の場、個人プロジェクトページなどに発表した作品を整理する。",
-    platform1: "プラットフォームリンク 01", platform2: "プラットフォームリンク 02", platform3: "プラットフォームリンク 03",
-    aboutLabel: "About", aboutTitle: "プロフィール",
-    aboutText1: "現在は絵画と視覚表現を中心に制作しながら、空間、構造、知覚、身体経験、物語のシステムの関係に関心を持っている。",
-    aboutText2: "このサイトでは、学校での制作、個人プロジェクト、学外プラットフォーム上の作品記録を、開かれた制作アーカイブとして整理していく。",
-    portraitPlaceholder: "顔写真・プロフィール画像", contactLabel: "Contact", contactTitle: "連絡先",
-    contactDesc: "作品協力、展示、依頼、その他の連絡は、以下の方法から。"
-  },
-  en: {
-    navWorks: "Works", navPlatforms: "External Works", navAbout: "About", navContact: "Contact",
-    heroLabel: "Art Portfolio",
-    heroTitle: "A personal art archive built through painting, installation, and visual narrative",
-    heroDesc: "This site gathers my school works, projects published on external platforms, and the creative direction I am currently developing.",
-    viewWorks: "View Works", contactMe: "Contact", mainImagePlaceholder: "Main Visual",
-    schoolLabel: "School Works", schoolTitle: "School Works", schoolDesc: "This section can include paintings, prints, installations, course projects, and exhibition records.",
-    categoryPainting: "Painting", categoryInstallation: "Installation", categoryResearch: "Research",
-    work1Title: "Work Title 01", work1Desc: "Write the concept, materials, dimensions, year, and how the work relates to a course or your own artistic concerns.",
-    work2Title: "Work Title 02", work2Desc: "This section is suitable for spatial works, materials, viewing methods, and installation views.",
-    work3Title: "Work Title 03", work3Desc: "Use this section for course research, experiments, sketches, process records, and final outcomes.",
-    outsideLabel: "Outside Works", outsideTitle: "External Works and Platforms", outsideDesc: "A place to organize works published on social media, illustration platforms, game or character-design related platforms, and personal project pages.",
-    platform1: "Platform Link 01", platform2: "Platform Link 02", platform3: "Platform Link 03",
-    aboutLabel: "About", aboutTitle: "About Me",
-    aboutText1: "My current practice centers on painting and visual expression, while also engaging with the relationships between space, structure, perception, bodily experience, and narrative systems.",
-    aboutText2: "This website will continue to collect my school works, personal projects, and external platform records as an open archive of my practice.",
-    portraitPlaceholder: "Portrait or Profile Image", contactLabel: "Contact", contactTitle: "Contact",
-    contactDesc: "For collaborations, exhibitions, commissions, or other inquiries, please contact me through the links below."
-  }
+
+const dict={
+ zh:{navHome:'首页',navSchool:'学校作品',navIndependent:'个人创作',navAbout:'关于我',navContact:'联系',homeEyebrow:'Portfolio / Painting / Character Creation',homeTitle:'在暗色空间中整理绘画、角色与视觉叙事',homeLead:'这里是 Xintong Dang 的个人艺术展示网站，收录学校中的油画创作、校外平台作品、个人动漫风格原创角色创作与联系方式。',viewSchool:'查看学校作品',viewIndependent:'查看个人创作',visualText:'Painting / Digital / Archive',homeSchoolDesc:'东京造形大学内的绘画、课程项目与展示记录。',homeIndependentDesc:'CSP、Procreate 创作的动漫风格原创角色与平台作品。',homeAboutDesc:'学习背景、创作方向与个人简介。',schoolEyebrow:'School Works',schoolTitle:'学校里的艺术创作',schoolIntro:'这里用于整理东京造形大学期间的油画、课程项目、展览记录、研究过程与作品说明。图片和具体作品信息之后可以继续替换。',oilPainting:'Oil Painting',courseProject:'Course Project',archive:'Archive',schoolWork1:'作品标题 / Work Title',schoolWorkDesc1:'材料、尺寸、年份、课程名、创作概念可以写在这里。',schoolWork2:'课程项目 / Course Project',schoolWorkDesc2:'可放置草图、过程照片、展示现场与最终作品。',schoolWork3:'研究记录 / Research Archive',schoolWorkDesc3:'用于整理主题研究、文本、实验与创作脉络。',indEyebrow:'Independent Works',indTitle:'校外作品与个人原创角色创作',indIntro:'我也使用 Clip Studio Paint 与 Procreate 进行个人动漫风格原创角色创作。这里可以连接到小红书、Instagram、米画师，以及之后补充的其他平台。',platformEyebrow:'External Platforms',platformTitle:'平台链接',platformDesc:'图标为简约外链入口，适合放置校外作品、委托页面和社交平台。',illustration:'Illustration',indWork1:'原创角色',indWorkDesc1:'可放置角色立绘、设定图、服装设计、表情差分与世界观说明。',indWork2:'插画作品',indWorkDesc2:'可放置完整插画、头像委托、构图练习或系列作品。',aboutEyebrow:'About',aboutLead:'东京造形大学 造形学部 美术学科 絵画専攻領域 的油画学生。',aboutBody1:'我的创作以油画和视觉表达为中心，同时也使用 Clip Studio Paint 与 Procreate 进行个人动漫风格原创角色创作。',aboutBody2:'这个网站作为作品档案，整理学校中的艺术创作、校外平台发布的作品、个人项目与联系方式。',nameLabel:'Name',schoolLabel:'School',majorLabel:'Major',toolsLabel:'Tools',contactEyebrow:'Contact',contactTitle:'联系方式',contactIntro:'如需作品合作、展示、委托或其他交流，可以通过以下方式联系我。',emailLabel:'Email',emailNote:'为减少垃圾邮件，页面中隐藏了 @ 符号。'},
+ ja:{navHome:'ホーム',navSchool:'大学での作品',navIndependent:'個人制作',navAbout:'プロフィール',navContact:'連絡先',homeEyebrow:'Portfolio / Painting / Character Creation',homeTitle:'暗い空間の中で、絵画、キャラクター、視覚的な物語を整理する',homeLead:'Xintong Dang / トウ シンドウの個人ポートフォリオサイト。大学での油画作品、外部プラットフォームで公開している作品、個人のアニメ風オリジナルキャラクター制作、連絡先をまとめている。',viewSchool:'大学での作品を見る',viewIndependent:'個人制作を見る',visualText:'Painting / Digital / Archive',homeSchoolDesc:'東京造形大学で制作した絵画、授業課題、展示記録。',homeIndependentDesc:'CSP、Procreateで制作したアニメ風オリジナルキャラクターと外部作品。',homeAboutDesc:'学習背景、制作の方向性、プロフィール。',schoolEyebrow:'School Works',schoolTitle:'大学での芸術制作',schoolIntro:'東京造形大学で制作した油画、授業課題、展示記録、研究プロセス、作品説明を整理するページ。画像と作品情報はあとから差し替えられる。',oilPainting:'Oil Painting',courseProject:'Course Project',archive:'Archive',schoolWork1:'作品タイトル / Work Title',schoolWorkDesc1:'素材、サイズ、制作年、授業名、制作コンセプトをここに入れる。',schoolWork2:'授業課題 / Course Project',schoolWorkDesc2:'スケッチ、制作過程、展示風景、完成作品を掲載できる。',schoolWork3:'研究記録 / Research Archive',schoolWorkDesc3:'テーマ研究、テキスト、実験、制作の流れを整理する。',indEyebrow:'Independent Works',indTitle:'外部作品と個人のオリジナルキャラクター制作',indIntro:'Clip Studio Paint と Procreate を使い、個人でアニメ風のオリジナルキャラクター制作も行っている。小紅書、Instagram、米画師などの外部リンクをまとめる。',platformEyebrow:'External Platforms',platformTitle:'プラットフォームリンク',platformDesc:'外部作品、依頼ページ、SNSに接続するためのシンプルな外部リンク。',illustration:'Illustration',indWork1:'オリジナルキャラクター',indWorkDesc1:'キャラクター立ち絵、設定画、衣装デザイン、表情差分、世界観説明を掲載できる。',indWork2:'イラスト作品',indWorkDesc2:'完成イラスト、アイコン依頼、構図練習、シリーズ作品を掲載できる。',aboutEyebrow:'About',aboutLead:'東京造形大学 造形学部 美術学科 絵画専攻領域の油画学生。',aboutBody1:'制作は油画と視覚表現を中心にしている。同時に、Clip Studio Paint と Procreate を使って個人のアニメ風オリジナルキャラクター制作も行っている。',aboutBody2:'このサイトは作品アーカイブとして、大学での制作、外部プラットフォームで公開した作品、個人プロジェクト、連絡先を整理する。',nameLabel:'Name',schoolLabel:'School',majorLabel:'Major',toolsLabel:'Tools',contactEyebrow:'Contact',contactTitle:'連絡先',contactIntro:'作品協力、展示、依頼、その他の連絡は以下から。',emailLabel:'Email',emailNote:'迷惑メール対策のため、@ を隠して表示している。'},
+ en:{navHome:'Home',navSchool:'School Works',navIndependent:'Independent Works',navAbout:'About',navContact:'Contact',homeEyebrow:'Portfolio / Painting / Character Creation',homeTitle:'A dark, quiet archive for painting, characters, and visual narrative',homeLead:'This is the personal art portfolio of Xintong Dang / トウ シンドウ, featuring oil painting works from school, external platform works, original anime-style character creation, and contact information.',viewSchool:'View School Works',viewIndependent:'View Independent Works',visualText:'Painting / Digital / Archive',homeSchoolDesc:'Paintings, course projects, and exhibition records from Tokyo Zokei University.',homeIndependentDesc:'Anime-style original characters and digital works created with CSP and Procreate.',homeAboutDesc:'Education, creative direction, and profile.',schoolEyebrow:'School Works',schoolTitle:'Artworks from School',schoolIntro:'This page archives oil paintings, course projects, exhibition records, research processes, and work descriptions from Tokyo Zokei University. Images and detailed information can be replaced later.',oilPainting:'Oil Painting',courseProject:'Course Project',archive:'Archive',schoolWork1:'Work Title',schoolWorkDesc1:'Materials, size, year, course title, and concept can be written here.',schoolWork2:'Course Project',schoolWorkDesc2:'Sketches, process photos, installation views, and final works can be added here.',schoolWork3:'Research Archive',schoolWorkDesc3:'For research themes, texts, experiments, and the development of each project.',indEyebrow:'Independent Works',indTitle:'External Works and Original Character Creation',indIntro:'I also create original anime-style characters using Clip Studio Paint and Procreate. This page links to Xiaohongshu, Instagram, Mihuashi, and other platforms to be added later.',platformEyebrow:'External Platforms',platformTitle:'Platform Links',platformDesc:'Minimal external links for social platforms, commissions, and independent works.',illustration:'Illustration',indWork1:'Original Characters',indWorkDesc1:'Character sheets, costume design, expression variations, and world-building notes can be placed here.',indWork2:'Illustration Works',indWorkDesc2:'Finished illustrations, icon commissions, composition studies, and series works can be placed here.',aboutEyebrow:'About',aboutLead:'Oil painting student in the Painting Field, Department of Fine Arts, Faculty of Design, Tokyo Zokei University.',aboutBody1:'My practice centers on oil painting and visual expression. I also create original anime-style characters using Clip Studio Paint and Procreate.',aboutBody2:'This website works as an archive for my school works, external platform works, personal projects, and contact information.',nameLabel:'Name',schoolLabel:'School',majorLabel:'Major',toolsLabel:'Tools',contactEyebrow:'Contact',contactTitle:'Contact',contactIntro:'For collaborations, exhibitions, commissions, or other inquiries, please contact me through the information below.',emailLabel:'Email',emailNote:'The @ symbol is hidden on this page to reduce spam.'}
 };
-
-function setLanguage(lang) {
-  document.documentElement.lang = lang;
-  document.querySelectorAll("[data-i18n]").forEach((element) => {
-    const key = element.getAttribute("data-i18n");
-    if (translations[lang] && translations[lang][key]) {
-      element.textContent = translations[lang][key];
-    }
-  });
-  document.querySelectorAll(".language-switch button").forEach((button) => {
-    button.classList.toggle("active", button.dataset.lang === lang);
-  });
-  localStorage.setItem("portfolio-language", lang);
-}
-
-document.querySelectorAll(".language-switch button").forEach((button) => {
-  button.addEventListener("click", () => setLanguage(button.dataset.lang));
-});
-
-document.getElementById("year").textContent = new Date().getFullYear();
-setLanguage(localStorage.getItem("portfolio-language") || "zh");
+function applyLang(lang){const data=dict[lang]||dict.zh;document.documentElement.lang=lang==='ja'?'ja':lang==='en'?'en':'zh';document.querySelectorAll('[data-i18n]').forEach(el=>{const key=el.dataset.i18n;if(data[key]) el.textContent=data[key];});document.querySelectorAll('[data-lang]').forEach(btn=>btn.classList.toggle('active',btn.dataset.lang===lang));localStorage.setItem('siteLang',lang)}
+document.addEventListener('DOMContentLoaded',()=>{document.getElementById('year').textContent=new Date().getFullYear();const saved=localStorage.getItem('siteLang')||'zh';applyLang(saved);document.querySelectorAll('[data-lang]').forEach(btn=>btn.addEventListener('click',()=>applyLang(btn.dataset.lang)));});

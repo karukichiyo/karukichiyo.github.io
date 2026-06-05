@@ -3,136 +3,69 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Karuki | Portfolio</title>
-  <meta name="description" content="Karuki's multilingual art portfolio: school works, independent works, profile and contact." />
+  <title>Xintong Dang | Portfolio</title>
+  <meta name="description" content="Xintong Dang / トウシンドウ multilingual art portfolio." />
   <link rel="stylesheet" href="assets/css/style.css" />
 </head>
-<body>
+<body data-page="home">
+  <div class="site-noise" aria-hidden="true"></div>
   <header class="site-header">
-    <a class="logo" href="#top">karuki</a>
-    <nav class="nav" aria-label="Main Navigation">
-      <a href="#works" data-i18n="navWorks">作品</a>
-      <a href="#platforms" data-i18n="navPlatforms">校外作品</a>
-      <a href="#about" data-i18n="navAbout">关于我</a>
-      <a href="#contact" data-i18n="navContact">联系方式</a>
+    <a class="brand" href="index.html" aria-label="Home">
+      <span class="brand-mark">XD</span>
+      <span>Xintong Dang</span>
+    </a>
+    <nav class="nav" aria-label="Main navigation">
+      <a href="index.html" aria-current="page" data-i18n="navHome">首页</a>
+      <a href="school.html" data-i18n="navSchool">学校作品</a>
+      <a href="independent.html" data-i18n="navIndependent">个人创作</a>
+      <a href="about.html" data-i18n="navAbout">关于我</a>
+      <a href="contact.html" data-i18n="navContact">联系</a>
     </nav>
     <div class="language-switch" aria-label="Language switcher">
-      <button data-lang="zh" class="active">中</button>
-      <button data-lang="ja">日</button>
-      <button data-lang="en">EN</button>
+      <button type="button" data-lang="zh">中</button>
+      <button type="button" data-lang="ja">日</button>
+      <button type="button" data-lang="en">EN</button>
     </div>
   </header>
+  <main>
 
-  <main id="top">
-    <section class="hero section">
-      <div class="hero-text">
-        <p class="eyebrow" data-i18n="heroLabel">艺术作品集 / Portfolio</p>
-        <h1 data-i18n="heroTitle">以绘画、装置与视觉叙事构成的个人艺术档案</h1>
-        <p class="hero-description" data-i18n="heroDesc">
-          这里整理我在学校中的艺术创作、校外平台发布的作品，以及正在形成中的个人创作方向。
-        </p>
-        <div class="hero-actions">
-          <a class="button primary" href="#works" data-i18n="viewWorks">查看作品</a>
-          <a class="button secondary" href="#contact" data-i18n="contactMe">联系我</a>
+      <section class="hero page-section">
+        <div class="hero-copy reveal">
+          <p class="eyebrow" data-i18n="homeEyebrow">Portfolio / Painting / Character Creation</p>
+          <h1 data-i18n="homeTitle">在暗色空间中整理绘画、角色与视觉叙事</h1>
+          <p class="hero-text" data-i18n="homeLead">这里是 Xintong Dang 的个人艺术展示网站，收录学校中的油画创作、校外平台作品、个人动漫风格原创角色创作与联系方式。</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="school.html" data-i18n="viewSchool">查看学校作品</a>
+            <a class="btn btn-ghost" href="independent.html" data-i18n="viewIndependent">查看个人创作</a>
+          </div>
         </div>
-      </div>
-      <div class="hero-visual" aria-label="Featured portfolio visual">
-        <div class="image-placeholder large">
-          <span data-i18n="mainImagePlaceholder">主视觉图片</span>
+        <div class="hero-stage reveal" aria-label="Abstract portfolio visual">
+          <div class="orb orb-a"></div>
+          <div class="orb orb-b"></div>
+          <div class="frame-card main-frame">
+            <span class="frame-number">01</span>
+            <p data-i18n="visualText">Painting / Digital / Archive</p>
+          </div>
+          <div class="thin-line line-one"></div>
+          <div class="thin-line line-two"></div>
         </div>
-      </div>
-    </section>
-
-    <section id="works" class="section">
-      <div class="section-heading">
-        <p class="eyebrow" data-i18n="schoolLabel">School Works</p>
-        <h2 data-i18n="schoolTitle">学校里的艺术创作</h2>
-        <p data-i18n="schoolDesc">可以放置绘画、版画、装置、课程项目、展览记录等作品。</p>
-      </div>
-      <div class="work-grid">
-        <article class="work-card">
-          <div class="image-placeholder"><span>01</span></div>
-          <div class="work-info">
-            <p class="work-category" data-i18n="categoryPainting">绘画 / Painting</p>
-            <h3 data-i18n="work1Title">作品标题 01</h3>
-            <p data-i18n="work1Desc">在这里写作品概念、材料、尺寸、年份，以及它与课程或个人问题意识的关系。</p>
-          </div>
-        </article>
-        <article class="work-card">
-          <div class="image-placeholder"><span>02</span></div>
-          <div class="work-info">
-            <p class="work-category" data-i18n="categoryInstallation">装置 / Installation</p>
-            <h3 data-i18n="work2Title">作品标题 02</h3>
-            <p data-i18n="work2Desc">这里适合放置空间、材料、观看方式、展示现场等说明。</p>
-          </div>
-        </article>
-        <article class="work-card">
-          <div class="image-placeholder"><span>03</span></div>
-          <div class="work-info">
-            <p class="work-category" data-i18n="categoryResearch">研究 / Research</p>
-            <h3 data-i18n="work3Title">作品标题 03</h3>
-            <p data-i18n="work3Desc">可以整理课堂研究、主题实验、草图、过程记录和最终作品。</p>
-          </div>
-        </article>
-      </div>
-    </section>
-
-    <section id="platforms" class="section split-section">
-      <div>
-        <p class="eyebrow" data-i18n="outsideLabel">Outside Works</p>
-        <h2 data-i18n="outsideTitle">校外作品与平台</h2>
-        <p data-i18n="outsideDesc">
-          用于整理在社交平台、插画平台、游戏/角色设计相关平台、个人项目页面等地方发布过的作品。
-        </p>
-      </div>
-      <div class="link-list">
-        <a href="#" target="_blank" rel="noreferrer">
-          <span data-i18n="platform1">平台链接 01</span>
-          <small>Instagram / X / Pixiv / ArtStation 等</small>
+      </section>
+      <section class="page-section compact-grid">
+        <a class="route-card reveal" href="school.html">
+          <span>01</span><h2 data-i18n="navSchool">学校作品</h2><p data-i18n="homeSchoolDesc">东京造形大学内的绘画、课程项目与展示记录。</p>
         </a>
-        <a href="#" target="_blank" rel="noreferrer">
-          <span data-i18n="platform2">平台链接 02</span>
-          <small>可替换为具体作品集、商店或项目页</small>
+        <a class="route-card reveal" href="independent.html">
+          <span>02</span><h2 data-i18n="navIndependent">个人创作</h2><p data-i18n="homeIndependentDesc">CSP、Procreate 创作的动漫风格原创角色与平台作品。</p>
         </a>
-        <a href="#" target="_blank" rel="noreferrer">
-          <span data-i18n="platform3">平台链接 03</span>
-          <small>External Portfolio / Project Archive</small>
+        <a class="route-card reveal" href="about.html">
+          <span>03</span><h2 data-i18n="navAbout">关于我</h2><p data-i18n="homeAboutDesc">学习背景、创作方向与个人简介。</p>
         </a>
-      </div>
-    </section>
+      </section>
 
-    <section id="about" class="section about-section">
-      <div class="portrait-placeholder">
-        <span data-i18n="portraitPlaceholder">头像或个人照片</span>
-      </div>
-      <div>
-        <p class="eyebrow" data-i18n="aboutLabel">About</p>
-        <h2 data-i18n="aboutTitle">关于我</h2>
-        <p data-i18n="aboutText1">
-          我目前以绘画和视觉表达为中心进行创作，同时关注空间、结构、感知、身体经验与叙事系统之间的关系。
-        </p>
-        <p data-i18n="aboutText2">
-          这个网站会持续整理我的学校作品、个人项目和校外平台上的创作记录，作为一个开放的艺术档案。
-        </p>
-      </div>
-    </section>
-
-    <section id="contact" class="section contact-section">
-      <p class="eyebrow" data-i18n="contactLabel">Contact</p>
-      <h2 data-i18n="contactTitle">联系方式</h2>
-      <p data-i18n="contactDesc">如果需要作品合作、展览联系、委托或其他交流，可以通过以下方式联系我。</p>
-      <div class="contact-links">
-        <a href="mailto:your-email@example.com">your-email@example.com</a>
-        <a href="#" target="_blank" rel="noreferrer">Instagram</a>
-        <a href="#" target="_blank" rel="noreferrer">Other Platform</a>
-      </div>
-    </section>
   </main>
-
   <footer class="site-footer">
-    <p>© <span id="year"></span> karuki. All rights reserved.</p>
+    <p>© <span id="year"></span> Xintong Dang / トウ シンドウ</p>
   </footer>
-
   <script src="assets/js/i18n.js"></script>
 </body>
 </html>
