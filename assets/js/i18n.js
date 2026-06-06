@@ -446,51 +446,79 @@ function initCoordinateField(){
 
 
 
+
 function enrichCoordinateField(){
   const field=document.querySelector('.coordinate-field');
   if(!field || field.dataset.enriched==='true')return;
   field.dataset.enriched='true';
 
-  const diagonals=[
-    {x:12,y:8,a:-32,major:true},
-    {x:26,y:18,a:42,major:false},
-    {x:48,y:4,a:-27,major:false},
-    {x:68,y:18,a:35,major:true},
-    {x:83,y:2,a:-41,major:false},
-    {x:15,y:56,a:29,major:false},
-    {x:38,y:48,a:-36,major:true},
-    {x:74,y:52,a:31,major:false}
+  const facets=[
+    {x:9,y:12,w:18,h:26,a:-18},
+    {x:27,y:6,w:22,h:34,a:26},
+    {x:55,y:10,w:26,h:38,a:-32},
+    {x:76,y:16,w:18,h:30,a:22},
+    {x:14,y:58,w:24,h:30,a:18},
+    {x:42,y:54,w:28,h:36,a:-24},
+    {x:70,y:62,w:22,h:32,a:30}
   ];
-  diagonals.forEach((d,i)=>{
+  facets.forEach((f,i)=>{
     const el=document.createElement('i');
-    el.className=`field-diagonal ${d.major?'major':''}`;
-    el.style.left=`${d.x}%`;
-    el.style.top=`${d.y}%`;
-    el.style.transform=`rotate(${d.a}deg)`;
-    el.style.animationDelay=`${i*.31}s`;
+    el.className='crystal-facet';
+    el.style.left=`${f.x}%`;
+    el.style.top=`${f.y}%`;
+    el.style.width=`${f.w}vw`;
+    el.style.height=`${f.h}vh`;
+    el.style.transform=`rotate(${f.a}deg)`;
+    el.style.animationDelay=`${i*.55}s`;
     field.appendChild(el);
   });
 
-  const fragments=[
-    {x:10,y:23,a:-12,c:'violet'},
-    {x:22,y:37,a:25,c:'cold'},
-    {x:35,y:18,a:-38,c:'warm'},
-    {x:51,y:41,a:8,c:''},
-    {x:67,y:29,a:-28,c:'violet'},
-    {x:82,y:53,a:18,c:'cold'},
-    {x:16,y:76,a:-18,c:'warm'},
-    {x:42,y:72,a:34,c:''},
-    {x:72,y:78,a:-12,c:'violet'},
-    {x:88,y:18,a:27,c:'cold'}
+  const edges=[
+    {x:18,y:22,a:-18,l:16},
+    {x:34,y:18,a:28,l:22},
+    {x:58,y:28,a:-34,l:18},
+    {x:81,y:34,a:22,l:14},
+    {x:23,y:72,a:16,l:18},
+    {x:50,y:70,a:-26,l:20},
+    {x:72,y:78,a:31,l:16}
   ];
-  fragments.forEach((f,i)=>{
+  edges.forEach((e,i)=>{
     const el=document.createElement('i');
-    el.className=`field-fragment ${f.c}`;
-    el.style.left=`${f.x}%`;
-    el.style.top=`${f.y}%`;
-    el.style.transform=`rotate(${f.a}deg)`;
-    el.style.animationDelay=`${(i*.47)%4.9}s`;
+    el.className='crystal-edge';
+    el.style.left=`${e.x}%`;
+    el.style.top=`${e.y}%`;
+    el.style.width=`${e.l}vw`;
+    el.style.transform=`rotate(${e.a}deg)`;
+    el.style.animationDelay=`${i*.47}s`;
     field.appendChild(el);
+  });
+
+  const inclusions=[
+    {x:31.4,y:24.9},{x:63.2,y:61.8},{x:7.8,y:88.9},{x:91.4,y:12.7}
+  ];
+  inclusions.forEach((p,i)=>{
+    const el=document.createElement('i');
+    el.className='mineral-inclusion';
+    el.style.left=`${p.x}%`;
+    el.style.top=`${p.y}%`;
+    el.style.animationDelay=`${i*.9}s`;
+    field.appendChild(el);
+  });
+}
+
+function initChronologyJump(){
+  const buttons=document.querySelectorAll('[data-jump]');
+  if(!buttons.length)return;
+  buttons.forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      const no=btn.dataset.jump;
+      const target=document.querySelector(`[data-index="${no}"]`);
+      if(target){
+        target.scrollIntoView({behavior:'smooth',block:'center'});
+        target.classList.add('chrono-flash');
+        setTimeout(()=>target.classList.remove('chrono-flash'),1200);
+      }
+    });
   });
 }
 
@@ -511,4 +539,5 @@ document.addEventListener('DOMContentLoaded',()=>{
   initWorkPageDetails();
   initCoordinateField();
   enrichCoordinateField();
+  initChronologyJump();
 });
