@@ -544,6 +544,45 @@ function initChronologySortToggle(){
 }
 
 
+
+function initV19Chronology(){
+  const section=document.querySelector('.chronology-v19');
+  if(!section)return;
+  const list=section.querySelector('.chrono-list');
+  const toggle=section.querySelector('.chrono-sort-toggle');
+  const label=toggle?.querySelector('b');
+  const original=[...list.children];
+
+  function jump(no){
+    const target=document.querySelector(`[data-index="${no}"]`);
+    if(target){
+      target.scrollIntoView({behavior:'smooth',block:'center'});
+      target.classList.add('chrono-flash');
+      setTimeout(()=>target.classList.remove('chrono-flash'),1200);
+    }
+  }
+
+  list.querySelectorAll('[data-jump]').forEach(entry=>{
+    entry.addEventListener('click',e=>{
+      if(e.target.closest('button,a'))return;
+      jump(entry.dataset.jump);
+    });
+  });
+
+  if(toggle){
+    function apply(newestFirst){
+      const items=newestFirst?[...original].reverse():[...original];
+      items.forEach(item=>list.appendChild(item));
+      toggle.setAttribute('aria-pressed',newestFirst?'true':'false');
+      if(label) label.textContent=newestFirst?'NEW → OLD':'OLD → NEW';
+      section.classList.toggle('newest-first',newestFirst);
+    }
+    apply(false);
+    toggle.addEventListener('click',()=>apply(!section.classList.contains('newest-first')));
+  }
+}
+
+
 document.addEventListener('DOMContentLoaded',()=>{
   const y=document.getElementById('year');
   if(y)y.textContent=new Date().getFullYear();
@@ -557,6 +596,7 @@ document.addEventListener('DOMContentLoaded',()=>{
   initAcademicViewMode();
   initArchiveIndex();
   initWorkPageDetails();
+  initV19Chronology();
   initCoordinateField();
   enrichCoordinateField();
   initChronologyJump();
