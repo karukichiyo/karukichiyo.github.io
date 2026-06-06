@@ -519,6 +519,31 @@ function initChronologyEntryJump(){
 }
 
 
+
+function initChronologySortToggle(){
+  const section=document.querySelector('.refined-work-chronology');
+  const list=section?.querySelector('.chrono-list');
+  const toggle=section?.querySelector('.chrono-sort-toggle');
+  if(!section || !list || !toggle)return;
+
+  const original=[...list.children];
+  const label=toggle.querySelector('b');
+
+  function apply(desc){
+    const entries=desc ? [...original].reverse() : [...original];
+    entries.forEach(entry=>list.appendChild(entry));
+    section.classList.toggle('newest-first',desc);
+    toggle.setAttribute('aria-pressed',desc?'true':'false');
+    if(label) label.textContent=desc ? 'NEW → OLD' : 'OLD → NEW';
+  }
+
+  apply(false);
+  toggle.addEventListener('click',()=>{
+    apply(!section.classList.contains('newest-first'));
+  });
+}
+
+
 document.addEventListener('DOMContentLoaded',()=>{
   const y=document.getElementById('year');
   if(y)y.textContent=new Date().getFullYear();
@@ -536,4 +561,5 @@ document.addEventListener('DOMContentLoaded',()=>{
   enrichCoordinateField();
   initChronologyJump();
   initChronologyEntryJump();
+  initChronologySortToggle();
 });

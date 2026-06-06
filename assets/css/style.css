@@ -3224,3 +3224,201 @@ html[lang="en"] .work-desc.lang-en{
     grid-column:1;
   }
 }
+
+
+/* ===== V18: image-board visibility, scalable chronology, time-order gallery, crystal fire ===== */
+
+/* 1) Homepage right-side image board: reserve dimensions so images don't collapse while loading. */
+.home-image{
+  box-sizing:border-box;
+}
+.home-image img{
+  width:100%!important;
+  height:100%!important;
+  object-fit:contain!important;
+}
+.home-image.hf-35{aspect-ratio:4/3}
+.home-image.hf-33{aspect-ratio:4/3}
+.home-image.hf-38{aspect-ratio:4/3}
+.home-image.hf-37{aspect-ratio:4/3}
+.home-image.hf-41{aspect-ratio:1/1}
+.home-image::before{
+  background:rgba(5,5,6,.18);
+}
+
+/* 2) selected months: normalize all card brightness. */
+.month-card,
+.month-card.primary{
+  background:rgba(5,5,6,.74)!important;
+}
+.month-card:hover,
+.month-card.primary:hover{
+  background:rgba(15,15,17,.86)!important;
+}
+.month-card.primary::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  border:1px solid rgba(214,209,204,.12);
+  pointer-events:none;
+}
+
+/* 3) Chronology header: sort toggle. */
+.refined-work-chronology .chronology-head{
+  grid-template-columns:260px 1fr auto;
+}
+.chrono-sort-toggle{
+  align-self:end;
+  width:122px;
+  height:54px;
+  border:1px solid rgba(214,209,204,.22);
+  background:#050506;
+  color:var(--silver);
+  cursor:pointer;
+  display:grid;
+  align-content:center;
+  gap:2px;
+  text-align:left;
+  padding:8px 12px;
+}
+.chrono-sort-toggle span{
+  color:var(--red-bright);
+  font-size:10px;
+  letter-spacing:.18em;
+}
+.chrono-sort-toggle b{
+  color:var(--silver);
+  font-size:15px;
+  letter-spacing:.04em;
+}
+.chrono-sort-toggle:hover{
+  border-color:var(--red-bright);
+  box-shadow:0 0 22px var(--red-glow);
+}
+
+/* 4) Time-based chronology: more scalable and less verbose. */
+.chrono-entry{
+  min-height:96px;
+  grid-template-columns:120px minmax(220px,.78fr) minmax(160px,1fr);
+}
+.chrono-list::before{left:112px}
+.chrono-entry::before{left:109px}
+.chrono-entry::after{left:120px}
+.chrono-entry time{
+  font-size:15px;
+}
+.chrono-entry-main{
+  padding:12px 0;
+}
+.chrono-entry-main h3{
+  font-size:clamp(20px,1.8vw,30px);
+}
+.chrono-entry-main span{
+  font-size:12px;
+}
+.chrono-thumbs img{
+  width:58px;
+  height:58px;
+}
+.chrono-entry.primary .chrono-thumbs img:first-child,
+.chrono-entry.mixed .chrono-thumbs img:nth-child(2),
+.chrono-entry.drawing .chrono-thumbs img:first-child{
+  width:82px;
+  height:62px;
+}
+.chrono-entry.mixed .chrono-thumbs img:first-child{
+  border-color:rgba(214,209,204,.26);
+}
+.chrono-entry.mixed .chrono-entry-main span::after{
+  content:"  / 04 is a note for 42";
+  color:rgba(214,209,204,.45);
+}
+
+/* 5) Gallery ordering support: make highlight after chronology jump clearer but not flashy. */
+.editorial-image.chrono-flash .gallery-open{
+  box-shadow:0 0 0 1px var(--red-bright),0 0 28px var(--red-glow)!important;
+}
+
+/* 6) Background: less grid, more broken measurement lines. */
+.site-field{
+  opacity:.22!important;
+  background-image:
+    linear-gradient(90deg,transparent 0 9.8%,rgba(226,222,218,.10) 9.86%,transparent 9.95% 38.2%,rgba(226,222,218,.06) 38.28%,transparent 38.38% 76.6%,rgba(226,222,218,.08) 76.68%,transparent 76.78%),
+    linear-gradient(0deg,transparent 0 16.4%,rgba(226,222,218,.09) 16.48%,transparent 16.58% 54.8%,rgba(226,222,218,.07) 54.88%,transparent 54.98% 87.1%,rgba(226,222,218,.08) 87.18%,transparent 87.28%)!important;
+  background-size:157vw 100%,100% 141vh!important;
+}
+.coord-line.minor{
+  opacity:.10!important;
+}
+.coord-line.major{
+  opacity:.34!important;
+}
+.coord-line.vertical,
+.coord-line.horizontal{
+  background:linear-gradient(to bottom,transparent,rgba(226,222,218,.18) 18%,rgba(226,222,218,.32) 46%,transparent 73%)!important;
+}
+.coord-line.horizontal{
+  background:linear-gradient(90deg,transparent,rgba(226,222,218,.18) 18%,rgba(226,222,218,.32) 46%,transparent 73%)!important;
+}
+
+/* 7) Crystal fire: more visible iridescence, but line-based and mineral-like. */
+.crystal-facet{
+  opacity:.38;
+  background:
+    linear-gradient(135deg,rgba(255,255,255,.020),transparent 42%),
+    linear-gradient(45deg,transparent 0 48%,rgba(214,209,204,.060) 48.2%,transparent 48.8% 100%),
+    radial-gradient(circle at 22% 24%,rgba(151,96,255,.11),transparent 24%),
+    radial-gradient(circle at 76% 62%,rgba(38,180,255,.09),transparent 24%),
+    radial-gradient(circle at 48% 44%,rgba(255,112,80,.065),transparent 18%);
+}
+.crystal-edge{
+  height:1px;
+  background:
+    linear-gradient(90deg,
+      transparent 0%,
+      rgba(214,209,204,.12) 18%,
+      rgba(113,92,255,.46) 34%,
+      rgba(42,208,255,.42) 47%,
+      rgba(255,126,83,.34) 58%,
+      rgba(214,209,204,.18) 72%,
+      transparent 100%);
+  opacity:.50;
+  filter:
+    drop-shadow(0 0 7px rgba(103,154,255,.10))
+    drop-shadow(0 0 4px rgba(255,111,80,.08));
+}
+.mineral-inclusion{
+  opacity:.14;
+}
+
+@media(max-width:1100px){
+  .refined-work-chronology .chronology-head{
+    grid-template-columns:1fr auto;
+  }
+  .refined-work-chronology .chronology-head .eyebrow{
+    grid-column:1 / -1;
+  }
+  .chrono-entry{
+    grid-template-columns:104px 1fr;
+  }
+  .chrono-list::before{left:96px}
+  .chrono-entry::before{left:93px}
+  .chrono-entry::after{left:104px}
+  .chrono-thumbs{grid-column:2}
+}
+@media(max-width:640px){
+  .refined-work-chronology .chronology-head{
+    grid-template-columns:1fr;
+  }
+  .chrono-sort-toggle{
+    width:118px;
+  }
+  .chrono-entry{
+    grid-template-columns:1fr;
+    padding-left:22px;
+  }
+  .chrono-list::before{left:6px}
+  .chrono-entry::before{left:3px}
+  .chrono-entry::after{left:16px}
+  .chrono-thumbs{grid-column:1}
+}
