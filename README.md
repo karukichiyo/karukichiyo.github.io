@@ -72,3 +72,21 @@ Current mapping:
 - `33.jpg`–`43.jpg`: Large-scale Paintings 01
 
 Lightbox metadata is defined in `academic.html` inside each `.gallery-open` button.
+
+
+## V11 design / technical notes
+
+- Visible gallery images now use `assets/images/academic/thumbs/` thumbnails for faster loading.
+- Full-size images remain in `assets/images/academic/` and are used in the lightbox.
+- Academic Archive has two viewing modes:
+  - WALL: dense art-blog wall
+  - FOCUS: larger works for slower viewing
+- 39, 40 are detail views inside 38.
+- 43 is a detail view inside 37.
+
+## V12 additions
+
+- Added selected standalone work pages under `works/`.
+- Added image index overlay in Academic Archive.
+- Added Random Access on home and academic page.
+- Selected works show a `PAGE` link on hover.

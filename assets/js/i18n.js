@@ -141,6 +141,7 @@ function createThemeWidget(){
 }
 
 
+
 function initLightbox(){
   const lightbox=document.getElementById('lightbox');
   if(!lightbox)return;
@@ -149,34 +150,111 @@ function initLightbox(){
   const title=lightbox.querySelector('.lightbox-title');
   const meta=lightbox.querySelector('.lightbox-meta');
   const caption=lightbox.querySelector('.lightbox-caption');
+  const detailPanel=lightbox.querySelector('.detail-preview-panel');
+  const detailList=lightbox.querySelector('.detail-preview-list');
   const close=lightbox.querySelector('.lightbox-close');
   const prev=lightbox.querySelector('.prev');
   const next=lightbox.querySelector('.next');
   let current=0;
+  let activeDetail=null;
+
+  const detailLookup={
+    37:[
+      {no:37,src:'assets/images/academic/37.jpg',meta:'No. 37 · Oil / Acrylic painting',title:'大型作品 / Large-scale Paintings',
+       zh:'油画与丙烯的大型作品。',ja:'油画とアクリルによる大型作品。',en:'Large-scale works made with oil and acrylic.',type:'main'},
+      {no:43,src:'assets/images/academic/43.jpg',meta:'No. 43 · Detail / painting excerpt',title:'大型作品 / Large-scale Paintings',
+       zh:'37.jpg 的画面创作节选。',ja:'37.jpg の画面からの制作的な抜粋。',en:'A compositional excerpt from 37.jpg.',type:'detail'}
+    ],
+    38:[
+      {no:38,src:'assets/images/academic/38.jpg',meta:'No. 38 · Oil / Acrylic painting',title:'大型作品 / Large-scale Paintings',
+       zh:'油画与丙烯的大型作品。',ja:'油画とアクリルによる大型作品。',en:'Large-scale works made with oil and acrylic.',type:'main'},
+      {no:39,src:'assets/images/academic/39.jpg',meta:'No. 39 · Detail / painting excerpt',title:'大型作品 / Large-scale Paintings',
+       zh:'38.jpg 的画面创作节选。',ja:'38.jpg の画面からの制作的な抜粋。',en:'A compositional excerpt from 38.jpg.',type:'detail'},
+      {no:40,src:'assets/images/academic/40.jpg',meta:'No. 40 · Detail / painting excerpt',title:'大型作品 / Large-scale Paintings',
+       zh:'38.jpg 的画面创作节选。',ja:'38.jpg の画面からの制作的な抜粋。',en:'A compositional excerpt from 38.jpg.',type:'detail'}
+    ]
+  };
+
   function captionKey(){
     const lang=localStorage.getItem('siteLang')||document.documentElement.lang||'zh';
-    if(lang.startsWith('ja')) return 'captionJa';
-    if(lang.startsWith('en')) return 'captionEn';
-    return 'captionZh';
+    if(lang.startsWith('ja')) return 'ja';
+    if(lang.startsWith('en')) return 'en';
+    return 'zh';
+  }
+  function getNoFromSrc(src){
+    const m=(src||'').match(/\/(\d+)\.(?:jpg|jpeg|png|webp)$/i);
+    return m ? Number(m[1]) : null;
+  }
+  function getParentNo(no){
+    if([37,43].includes(no)) return 37;
+    if([38,39,40].includes(no)) return 38;
+    return null;
+  }
+  function renderPreviewPanel(parentNo, selectedNo){
+    const label=detailPanel?.querySelector('.detail-preview-label');
+    if(label){
+      const key=captionKey();
+      label.textContent=key==='ja'?'DETAIL VIEWS / 局部':key==='en'?'DETAIL VIEWS':'局部预览 / DETAIL VIEWS';
+    }
+    const set=detailLookup[parentNo];
+    if(!set || !detailPanel || !detailList){
+      if(detailPanel) detailPanel.hidden=true;
+      return;
+    }
+    detailPanel.hidden=false;
+    detailList.innerHTML=set.map(item=>`
+      <button class="detail-thumb ${item.no===selectedNo ? 'active' : ''}" type="button" data-no="${item.no}">
+        <span class="detail-thumb-kind">${item.type==='main' ? 'MAIN' : 'DETAIL'}</span>
+        <img src="${item.src}" alt="${item.meta}">
+        <span class="detail-thumb-no">${String(item.no).padStart(2,'0')}</span>
+      </button>
+    `).join('');
+    detailList.querySelectorAll('.detail-thumb').forEach(btn=>{
+      btn.addEventListener('click',()=>{
+        const choice=set.find(entry=>entry.no===Number(btn.dataset.no));
+        if(choice) renderDisplay(choice, parentNo);
+      });
+    });
+  }
+  function renderDisplay(item, parentNo){
+    activeDetail=item;
+    img.src=item.src;
+    img.alt=item.title || '';
+    title.textContent=item.title || '';
+    meta.textContent=item.meta || '';
+    caption.textContent=item[captionKey()] || '';
+    renderPreviewPanel(parentNo, item.no);
   }
   function openAt(index){
     current=(index+triggers.length)%triggers.length;
     const item=triggers[current];
-    img.src=item.dataset.src;
-    img.alt=item.dataset.title || '';
-    title.textContent=item.dataset.title || '';
-    meta.textContent=item.dataset.meta || '';
-    caption.textContent=item.dataset[captionKey()] || '';
+    const baseNo=getNoFromSrc(item.dataset.src);
+    const parentNo=getParentNo(baseNo);
     lightbox.classList.add('open');
     lightbox.setAttribute('aria-hidden','false');
     document.body.style.overflow='hidden';
+    if(parentNo && detailLookup[parentNo]){
+      const defaultItem=detailLookup[parentNo].find(entry=>entry.no===baseNo) || detailLookup[parentNo][0];
+      renderDisplay(defaultItem, parentNo);
+    }else{
+      activeDetail=null;
+      if(detailPanel) detailPanel.hidden=true;
+      img.src=item.dataset.src;
+      img.alt=item.dataset.title || '';
+      title.textContent=item.dataset.title || '';
+      meta.textContent=item.dataset.meta || '';
+      const key=captionKey();
+      caption.textContent=item.dataset[`caption${key.charAt(0).toUpperCase()+key.slice(1)}`] || '';
+    }
   }
   function closeBox(){
     lightbox.classList.remove('open');
     lightbox.setAttribute('aria-hidden','true');
     document.body.style.overflow='';
     img.src='';
+    activeDetail=null;
   }
+
   triggers.forEach((btn,i)=>btn.addEventListener('click',()=>openAt(i)));
   close.addEventListener('click',closeBox);
   prev.addEventListener('click',()=>openAt(current-1));
@@ -190,9 +268,14 @@ function initLightbox(){
   });
   document.querySelectorAll('[data-lang]').forEach(btn=>{
     btn.addEventListener('click',()=>{
-      if(lightbox.classList.contains('open')){
+      if(!lightbox.classList.contains('open')) return;
+      if(activeDetail){
+        const parentNo=getParentNo(activeDetail.no);
+        renderDisplay(activeDetail, parentNo);
+      }else{
         const item=triggers[current];
-        setTimeout(()=>{caption.textContent=item.dataset[captionKey()] || '';},0);
+        const key=captionKey();
+        caption.textContent=item.dataset[`caption${key.charAt(0).toUpperCase()+key.slice(1)}`] || '';
       }
     });
   });
@@ -209,6 +292,89 @@ function initEditorialMotion(){
   },{passive:true});
 }
 
+
+function initAcademicViewMode(){
+  const page=document.querySelector('.academic-redesign');
+  const toggle=document.querySelector('.view-mode-toggle');
+  if(!page || !toggle)return;
+  const label=toggle.querySelector('b');
+  function apply(mode){
+    const focus=mode==='focus';
+    page.classList.toggle('focus-mode',focus);
+    toggle.setAttribute('aria-pressed',focus?'true':'false');
+    if(label) label.textContent=focus?'FOCUS':'WALL';
+    localStorage.setItem('academicViewMode',focus?'focus':'wall');
+  }
+  apply(localStorage.getItem('academicViewMode')||'wall');
+  toggle.addEventListener('click',()=>{
+    apply(page.classList.contains('focus-mode')?'wall':'focus');
+  });
+}
+
+
+function initArchiveIndex(){
+  const overlay=document.querySelector('.archive-index-overlay');
+  const openBtn=document.querySelector('.archive-index-toggle');
+  const closeBtn=document.querySelector('.archive-index-close');
+  const items=document.querySelectorAll('.archive-index-item');
+  if(!overlay || !openBtn)return;
+  function open(){
+    overlay.classList.add('open');
+    overlay.setAttribute('aria-hidden','false');
+    openBtn.setAttribute('aria-expanded','true');
+    document.body.style.overflow='hidden';
+  }
+  function close(){
+    overlay.classList.remove('open');
+    overlay.setAttribute('aria-hidden','true');
+    openBtn.setAttribute('aria-expanded','false');
+    document.body.style.overflow='';
+  }
+  openBtn.addEventListener('click',open);
+  closeBtn?.addEventListener('click',close);
+  overlay.addEventListener('click',e=>{if(e.target===overlay)close();});
+  items.forEach(btn=>btn.addEventListener('click',()=>{
+    const no=btn.dataset.target;
+    close();
+    const target=document.querySelector(`[data-index="${no}"]`);
+    if(target) target.scrollIntoView({behavior:'smooth',block:'center'});
+  }));
+  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&overlay.classList.contains('open'))close();});
+}
+
+function initRandomAccess(){
+  const buttons=document.querySelectorAll('.random-access');
+  if(!buttons.length)return;
+  const pool=['33','34','35','36','37','38','41','42','01','02','03','10','11','12','13','14','15','16','17','18','19','20','21','22','23','24','25','26','27','28','29','30','31','32','04','05','06','07','08','09'];
+  buttons.forEach(btn=>btn.addEventListener('click',()=>{
+    const choice=pool[Math.floor(Math.random()*pool.length)];
+    if(location.pathname.endsWith('academic.html')){
+      const target=document.querySelector(`[data-index="${choice}"]`);
+      if(target) target.scrollIntoView({behavior:'smooth',block:'center'});
+    }else{
+      location.href=`academic.html#random-${choice}`;
+    }
+  }));
+  if(location.hash.startsWith('#random-')){
+    const no=location.hash.replace('#random-','');
+    setTimeout(()=>{
+      const target=document.querySelector(`[data-index="${no}"]`);
+      if(target) target.scrollIntoView({behavior:'smooth',block:'center'});
+    },350);
+  }
+}
+
+function initWorkPageDetails(){
+  const main=document.querySelector('.work-main-image');
+  const thumbs=document.querySelectorAll('.work-detail-thumb');
+  if(!main || !thumbs.length)return;
+  thumbs.forEach(btn=>btn.addEventListener('click',()=>{
+    thumbs.forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    main.src=btn.dataset.full;
+  }));
+}
+
 document.addEventListener('DOMContentLoaded',()=>{
   const y=document.getElementById('year');
   if(y)y.textContent=new Date().getFullYear();
@@ -219,4 +385,8 @@ document.addEventListener('DOMContentLoaded',()=>{
   createThemeWidget();
   initLightbox();
   initEditorialMotion();
+  initAcademicViewMode();
+  initArchiveIndex();
+  initRandomAccess();
+  initWorkPageDetails();
 });
