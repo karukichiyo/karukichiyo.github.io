@@ -342,27 +342,6 @@ function initArchiveIndex(){
   document.addEventListener('keydown',e=>{if(e.key==='Escape'&&overlay.classList.contains('open'))close();});
 }
 
-function initRandomAccess(){
-  const buttons=document.querySelectorAll('.random-access');
-  if(!buttons.length)return;
-  const pool=['33','34','35','36','37','38','41','42','01','02','03','10','11','12','13','14','15','16','17','18','19','20','21','22','23','24','25','26','27','28','29','30','31','32','04','05','06','07','08','09'];
-  buttons.forEach(btn=>btn.addEventListener('click',()=>{
-    const choice=pool[Math.floor(Math.random()*pool.length)];
-    if(location.pathname.endsWith('academic.html')){
-      const target=document.querySelector(`[data-index="${choice}"]`);
-      if(target) target.scrollIntoView({behavior:'smooth',block:'center'});
-    }else{
-      location.href=`academic.html#random-${choice}`;
-    }
-  }));
-  if(location.hash.startsWith('#random-')){
-    const no=location.hash.replace('#random-','');
-    setTimeout(()=>{
-      const target=document.querySelector(`[data-index="${no}"]`);
-      if(target) target.scrollIntoView({behavior:'smooth',block:'center'});
-    },350);
-  }
-}
 
 function initWorkPageDetails(){
   const main=document.querySelector('.work-main-image');
@@ -523,6 +502,23 @@ function initChronologyJump(){
 }
 
 
+
+function initChronologyEntryJump(){
+  document.querySelectorAll('.chrono-entry[data-jump]').forEach(entry=>{
+    entry.addEventListener('click',e=>{
+      if(e.target.closest('a,button'))return;
+      const no=entry.dataset.jump;
+      const target=document.querySelector(`[data-index="${no}"]`);
+      if(target){
+        target.scrollIntoView({behavior:'smooth',block:'center'});
+        target.classList.add('chrono-flash');
+        setTimeout(()=>target.classList.remove('chrono-flash'),1200);
+      }
+    });
+  });
+}
+
+
 document.addEventListener('DOMContentLoaded',()=>{
   const y=document.getElementById('year');
   if(y)y.textContent=new Date().getFullYear();
@@ -535,9 +531,9 @@ document.addEventListener('DOMContentLoaded',()=>{
   initEditorialMotion();
   initAcademicViewMode();
   initArchiveIndex();
-  initRandomAccess();
   initWorkPageDetails();
   initCoordinateField();
   enrichCoordinateField();
   initChronologyJump();
+  initChronologyEntryJump();
 });

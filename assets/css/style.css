@@ -2916,3 +2916,311 @@ html[lang="en"] .work-desc.lang-en{
     grid-template-columns:1fr;
   }
 }
+
+
+/* ===== V17: readable chronology + fixed images + quieter crystal field ===== */
+
+/* Random access removed */
+.random-access,
+.home-random{display:none!important}
+
+/* Remove dependency-look glitches and keep the home plate visible. */
+.home-image img,
+.month-card img,
+.chrono-thumbs img{
+  background:#050506;
+}
+
+/* Coordinate field: reduce square-grid impression and add fire-like crystal iridescence. */
+.site-field{
+  opacity:.30!important;
+  background-size:211px 100%,100% 173px,277px 100%,100% 331px!important;
+}
+.coord-line.minor{
+  opacity:.18;
+}
+.coord-line.major{
+  opacity:.46;
+}
+.coordinate-field{
+  opacity:.72;
+}
+.crystal-facet{
+  opacity:.32;
+  border-color:rgba(214,209,204,.07);
+  border-left-color:rgba(214,209,204,.16);
+  border-top-color:rgba(214,209,204,.12);
+  background:
+    linear-gradient(135deg,rgba(255,255,255,.018),transparent 42%),
+    linear-gradient(45deg,transparent 0 48%,rgba(214,209,204,.055) 48.2%,transparent 48.8% 100%),
+    radial-gradient(circle at 20% 22%,rgba(143,97,255,.05),transparent 22%),
+    radial-gradient(circle at 78% 64%,rgba(55,180,255,.04),transparent 20%);
+}
+.crystal-edge{
+  background:
+    linear-gradient(90deg,
+      transparent,
+      rgba(214,209,204,.20) 24%,
+      rgba(103,154,255,.26) 42%,
+      rgba(255,114,90,.18) 53%,
+      rgba(214,209,204,.14) 70%,
+      transparent);
+  opacity:.32;
+  filter:drop-shadow(0 0 8px rgba(120,120,255,.06));
+}
+.mineral-inclusion{
+  opacity:.10;
+}
+
+/* Homepage month board redesign: less heavy, more transparent, with tiny thumbnail plates. */
+.refined-month-board{
+  background:linear-gradient(90deg,rgba(255,255,255,.018),transparent);
+}
+.refined-month-board .trajectory-heading{
+  margin-bottom:18px;
+}
+.refined-month-board .trajectory-heading h2{
+  font-size:clamp(30px,4.4vw,62px);
+}
+.month-board{
+  display:grid;
+  grid-template-columns:1.2fr 1.3fr 1.2fr 1.3fr 1fr;
+  gap:1px;
+  background:rgba(214,209,204,.13);
+}
+.month-card{
+  min-height:160px;
+  position:relative;
+  display:grid;
+  grid-template-columns:1fr 74px;
+  grid-template-rows:auto auto 1fr;
+  gap:8px 12px;
+  align-content:start;
+  padding:16px;
+  background:rgba(5,5,6,.76);
+  overflow:hidden;
+}
+.month-card::before{
+  content:"";
+  position:absolute;
+  left:0;
+  top:0;
+  bottom:0;
+  width:1px;
+  background:linear-gradient(to bottom,var(--red-bright),transparent);
+  opacity:.45;
+}
+.month-card .month-date{
+  grid-column:1 / -1;
+  color:var(--red-bright);
+  font-size:11px;
+  letter-spacing:.16em;
+  font-variant-numeric:tabular-nums;
+}
+.month-card b{
+  color:var(--silver);
+  font-size:19px;
+  line-height:1.1;
+}
+.month-card em{
+  grid-column:1;
+  color:var(--muted);
+  font-style:normal;
+  font-size:12px;
+  letter-spacing:.08em;
+}
+.month-card img{
+  grid-column:2;
+  grid-row:2 / span 2;
+  width:74px;
+  height:74px;
+  object-fit:cover;
+  border:1px solid rgba(214,209,204,.18);
+  opacity:.72;
+  align-self:end;
+}
+.month-card.primary{
+  background:linear-gradient(135deg,rgba(255,255,255,.035),rgba(5,5,6,.80));
+}
+.month-card:hover{
+  background:rgba(16,16,18,.86);
+}
+.month-card:hover img{
+  opacity:1;
+}
+
+/* Replace the overlong chronology table with scalable month cards. */
+.refined-work-chronology{
+  padding-bottom:46px;
+}
+.refined-work-chronology .chronology-head{
+  margin-bottom:22px;
+}
+.refined-work-chronology .chronology-head h2{
+  font-size:clamp(38px,6vw,82px);
+}
+.chrono-list{
+  position:relative;
+  display:grid;
+  gap:10px;
+}
+.chrono-list::before{
+  content:"";
+  position:absolute;
+  left:124px;
+  top:0;
+  bottom:0;
+  width:1px;
+  background:linear-gradient(to bottom,rgba(214,209,204,.18),var(--red-glow),rgba(214,209,204,.12));
+}
+.chrono-entry{
+  position:relative;
+  display:grid;
+  grid-template-columns:132px minmax(260px,.86fr) minmax(180px,1fr);
+  gap:22px;
+  min-height:118px;
+  padding:14px 0;
+  cursor:pointer;
+}
+.chrono-entry::before{
+  content:"";
+  position:absolute;
+  left:121px;
+  top:34px;
+  width:8px;
+  height:8px;
+  border-radius:50%;
+  background:var(--red-bright);
+  box-shadow:0 0 14px var(--red-glow);
+  opacity:.70;
+}
+.chrono-entry::after{
+  content:"";
+  position:absolute;
+  left:132px;
+  right:0;
+  top:38px;
+  height:1px;
+  background:linear-gradient(90deg,rgba(214,209,204,.22),rgba(214,209,204,.05),transparent);
+}
+.chrono-entry time{
+  color:var(--silver);
+  font-size:17px;
+  letter-spacing:.10em;
+  font-variant-numeric:tabular-nums;
+  padding-top:25px;
+}
+.chrono-entry-main{
+  padding:18px 0;
+}
+.chrono-entry-main p{
+  color:var(--red-bright);
+  font-size:11px;
+  letter-spacing:.16em;
+  margin:0 0 8px;
+  text-transform:uppercase;
+}
+.chrono-entry-main h3{
+  color:var(--silver);
+  font-size:clamp(22px,2vw,34px);
+  line-height:1;
+  margin:0 0 10px;
+}
+.chrono-entry-main span{
+  color:var(--muted);
+  font-size:13px;
+  letter-spacing:.06em;
+}
+.chrono-thumbs{
+  display:flex;
+  justify-content:flex-end;
+  align-items:center;
+  gap:8px;
+  overflow:hidden;
+  padding:8px 0;
+}
+.chrono-thumbs img{
+  width:76px;
+  height:76px;
+  object-fit:cover;
+  border:1px solid rgba(214,209,204,.16);
+  opacity:.70;
+}
+.chrono-entry.primary .chrono-thumbs img:first-child,
+.chrono-entry.mixed .chrono-thumbs img:nth-child(2),
+.chrono-entry.drawing .chrono-thumbs img:first-child{
+  width:112px;
+  height:86px;
+}
+.chrono-entry:hover .chrono-thumbs img{
+  opacity:1;
+}
+.chrono-entry:hover .chrono-entry-main h3{
+  color:#fff;
+}
+.chrono-entry.etching{
+  background:linear-gradient(90deg,rgba(245,232,202,.035),transparent 72%);
+}
+.chrono-entry.drawing{
+  background:linear-gradient(90deg,rgba(255,255,255,.018),transparent);
+}
+.chrono-entry.painting.primary{
+  background:linear-gradient(90deg,rgba(255,255,255,.032),transparent 76%);
+}
+
+/* remove visual dominance of previous timeline styles */
+.month-chronology::before,
+.chrono-year,
+.chrono-row.month{
+  display:none!important;
+}
+
+@media(max-width:1100px){
+  .month-board{
+    grid-template-columns:1fr 1fr;
+  }
+  .chrono-entry{
+    grid-template-columns:112px 1fr;
+  }
+  .chrono-thumbs{
+    grid-column:2;
+    justify-content:flex-start;
+  }
+  .chrono-list::before{left:104px}
+  .chrono-entry::before{left:101px}
+  .chrono-entry::after{left:112px}
+}
+@media(max-width:640px){
+  .month-board{
+    grid-template-columns:1fr;
+  }
+  .month-card{
+    grid-template-columns:1fr 64px;
+    min-height:128px;
+  }
+  .month-card img{
+    width:64px;
+    height:64px;
+  }
+  .chrono-entry{
+    grid-template-columns:1fr;
+    gap:6px;
+    padding-left:22px;
+  }
+  .chrono-list::before{
+    left:6px;
+  }
+  .chrono-entry::before{
+    left:3px;
+    top:28px;
+  }
+  .chrono-entry::after{
+    left:16px;
+  }
+  .chrono-entry time{
+    padding-top:0;
+  }
+  .chrono-thumbs{
+    grid-column:1;
+  }
+}
