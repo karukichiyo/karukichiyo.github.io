@@ -445,6 +445,56 @@ function initCoordinateField(){
 }
 
 
+
+function enrichCoordinateField(){
+  const field=document.querySelector('.coordinate-field');
+  if(!field || field.dataset.enriched==='true')return;
+  field.dataset.enriched='true';
+
+  const diagonals=[
+    {x:12,y:8,a:-32,major:true},
+    {x:26,y:18,a:42,major:false},
+    {x:48,y:4,a:-27,major:false},
+    {x:68,y:18,a:35,major:true},
+    {x:83,y:2,a:-41,major:false},
+    {x:15,y:56,a:29,major:false},
+    {x:38,y:48,a:-36,major:true},
+    {x:74,y:52,a:31,major:false}
+  ];
+  diagonals.forEach((d,i)=>{
+    const el=document.createElement('i');
+    el.className=`field-diagonal ${d.major?'major':''}`;
+    el.style.left=`${d.x}%`;
+    el.style.top=`${d.y}%`;
+    el.style.transform=`rotate(${d.a}deg)`;
+    el.style.animationDelay=`${i*.31}s`;
+    field.appendChild(el);
+  });
+
+  const fragments=[
+    {x:10,y:23,a:-12,c:'violet'},
+    {x:22,y:37,a:25,c:'cold'},
+    {x:35,y:18,a:-38,c:'warm'},
+    {x:51,y:41,a:8,c:''},
+    {x:67,y:29,a:-28,c:'violet'},
+    {x:82,y:53,a:18,c:'cold'},
+    {x:16,y:76,a:-18,c:'warm'},
+    {x:42,y:72,a:34,c:''},
+    {x:72,y:78,a:-12,c:'violet'},
+    {x:88,y:18,a:27,c:'cold'}
+  ];
+  fragments.forEach((f,i)=>{
+    const el=document.createElement('i');
+    el.className=`field-fragment ${f.c}`;
+    el.style.left=`${f.x}%`;
+    el.style.top=`${f.y}%`;
+    el.style.transform=`rotate(${f.a}deg)`;
+    el.style.animationDelay=`${(i*.47)%4.9}s`;
+    field.appendChild(el);
+  });
+}
+
+
 document.addEventListener('DOMContentLoaded',()=>{
   const y=document.getElementById('year');
   if(y)y.textContent=new Date().getFullYear();
@@ -460,4 +510,5 @@ document.addEventListener('DOMContentLoaded',()=>{
   initRandomAccess();
   initWorkPageDetails();
   initCoordinateField();
+  enrichCoordinateField();
 });

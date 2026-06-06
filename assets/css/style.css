@@ -2122,3 +2122,353 @@ html[lang="en"] .work-desc.lang-en{
   .coord-node.major{opacity:.28}
   .coord-node.minor{opacity:.10}
 }
+
+
+/* ===== V14: Printed Interface / Observational Field =====
+   Pure visual redesign: no image files changed.
+   Aim: art-blog + printed matter + observation interface.
+*/
+
+/* More spatial background: diagonal depth + luminous fragments, but still subordinate to artworks. */
+.coordinate-field{
+  opacity:.90;
+}
+.coordinate-field .field-diagonal,
+.coordinate-field .field-fragment{
+  position:absolute;
+  pointer-events:none;
+  display:block;
+}
+.coordinate-field .field-diagonal{
+  width:1px;
+  height:42vh;
+  background:linear-gradient(to bottom,transparent,rgba(214,209,204,.26),transparent);
+  transform-origin:center;
+  opacity:.28;
+  filter:drop-shadow(0 0 6px rgba(214,209,204,.06));
+}
+.coordinate-field .field-diagonal.major{
+  height:64vh;
+  opacity:.42;
+  background:linear-gradient(to bottom,transparent,rgba(214,209,204,.42),var(--red-glow),rgba(214,209,204,.20),transparent);
+}
+.coordinate-field .field-fragment{
+  height:2px;
+  width:clamp(22px,4vw,64px);
+  border-radius:999px;
+  background:var(--red-bright);
+  opacity:.18;
+  box-shadow:0 0 14px var(--red-glow);
+  transform-origin:center;
+  animation:fragmentBlink 6.8s ease-in-out infinite alternate;
+}
+.coordinate-field .field-fragment.cold{
+  background:#75a9ff;
+  box-shadow:0 0 16px rgba(117,169,255,.28);
+}
+.coordinate-field .field-fragment.violet{
+  background:#a679ff;
+  box-shadow:0 0 16px rgba(166,121,255,.30);
+}
+.coordinate-field .field-fragment.warm{
+  background:#ff8a5c;
+  box-shadow:0 0 14px rgba(255,138,92,.22);
+}
+@keyframes fragmentBlink{
+  0%,28%,100%{opacity:.08;filter:brightness(.8)}
+  44%{opacity:.28;filter:brightness(1.15)}
+  58%{opacity:.46;filter:brightness(1.55)}
+}
+
+/* Printed registration marks on major screens */
+.site-editorial::after,
+.academic-redesign::after,
+.work-page::after{
+  content:"REG. FIELD / XINTONG DANG / TOKYO ZOKEI";
+  position:fixed;
+  left:18px;
+  bottom:16px;
+  z-index:-1;
+  color:rgba(214,209,204,.18);
+  font-size:10px;
+  letter-spacing:.22em;
+  writing-mode:vertical-rl;
+  pointer-events:none;
+}
+
+/* Homepage: frame becomes more like a constructed exhibition board. */
+.home-constellation.home-largeworks{
+  isolation:isolate;
+}
+.home-constellation.home-largeworks::after{
+  content:"";
+  position:absolute;
+  inset:5% 0 8% 8%;
+  z-index:0;
+  pointer-events:none;
+  background:
+    linear-gradient(135deg,transparent 0 47.8%,rgba(214,209,204,.22) 47.9%,transparent 48.05% 100%),
+    linear-gradient(28deg,transparent 0 61.8%,rgba(214,209,204,.14) 61.9%,transparent 62.05% 100%),
+    radial-gradient(circle at 72% 16%,var(--red-glow),transparent 12%);
+  opacity:.76;
+}
+.home-image{
+  z-index:2;
+}
+.home-image::before{
+  border-color:rgba(214,209,204,.30);
+}
+.home-image::after{
+  content:attr(data-code) " / LSP";
+  color:var(--red-bright);
+}
+.home-image.hf-35{right:7%;top:0;width:50%}
+.home-image.hf-33{right:30%;top:38%;width:34%}
+.home-image.hf-38{right:0;top:25%;width:30%}
+.home-image.hf-37{right:9%;top:65%;width:39%}
+.home-image.hf-41{right:0;top:76%;width:25%}
+.home-title-block::after{
+  content:"SELECTED LARGE-SCALE PAINTINGS / 33 · 35 · 37 · 38 · 41";
+  display:block;
+  margin-top:28px;
+  color:rgba(214,209,204,.42);
+  font-size:11px;
+  letter-spacing:.18em;
+  max-width:520px;
+}
+
+/* Academic sections become distinct material fields. */
+.editorial-section{
+  position:relative;
+}
+.editorial-section::after{
+  content:"";
+  position:absolute;
+  left:74px;
+  right:0;
+  top:70px;
+  bottom:70px;
+  z-index:-1;
+  pointer-events:none;
+  border:1px solid rgba(214,209,204,.055);
+  opacity:.9;
+}
+
+/* 01: paintings = black exhibition board */
+.large-scale-block::after{
+  background:
+    linear-gradient(90deg,rgba(255,255,255,.025),transparent 14%,transparent 86%,rgba(255,255,255,.018)),
+    radial-gradient(circle at 86% 20%,var(--red-soft),transparent 26%);
+}
+.large-scale-block .editorial-wall{
+  padding-top:8px;
+}
+.large-scale-block .editorial-image .gallery-open{
+  background:#030304;
+  border:1px solid rgba(214,209,204,.12);
+}
+
+/* 02-A: etching = paper / registration field */
+.etching-note{
+  position:relative;
+  padding-left:18px;
+}
+.etching-note::before{
+  content:"REGISTRATION / COPPERPLATE / ELECTIVE";
+  position:absolute;
+  left:0;
+  top:0;
+  bottom:-8px;
+  width:1px;
+  color:rgba(214,209,204,.26);
+  font-size:9px;
+  letter-spacing:.16em;
+  writing-mode:vertical-rl;
+}
+.print-wall{
+  padding:18px;
+  background:
+    linear-gradient(90deg,rgba(245,232,202,.10),rgba(255,255,255,.025)),
+    linear-gradient(0deg,transparent 0 29%,rgba(90,80,60,.16) 29.08%,transparent 29.18% 66%,rgba(90,80,60,.10) 66.08%,transparent 66.18%);
+  border:1px solid rgba(214,209,204,.16);
+}
+.print-wall .editorial-image{
+  padding:24px 14px 14px 24px;
+}
+.print-wall .gallery-open{
+  background:#e8ddc7!important;
+  padding:8px!important;
+  border:1px solid rgba(70,55,38,.22)!important;
+}
+.print-wall .gallery-open img{
+  background:#efe5cf;
+  box-shadow:0 0 0 1px rgba(0,0,0,.12);
+}
+
+/* 02-B: 1000 drawings = dense collage / rhythm field */
+.drawing-note{
+  margin-top:78px;
+}
+.drawing-wall{
+  position:relative;
+}
+.drawing-wall::before{
+  content:"1000 DRAWINGS / SELECTED SEQUENCE";
+  position:absolute;
+  right:0;
+  top:-28px;
+  color:rgba(214,209,204,.28);
+  font-size:10px;
+  letter-spacing:.20em;
+}
+.drawing-wall .editorial-image{
+  padding-left:14px;
+  padding-top:14px;
+}
+.drawing-wall .editorial-image:nth-child(3n){
+  transform:translateY(18px);
+}
+.drawing-wall .editorial-image:nth-child(5n){
+  transform:translateY(-10px);
+}
+.drawing-wall .gallery-open{
+  border:1px solid rgba(214,209,204,.12);
+}
+
+/* 03: research notes = workbench / draft layer */
+.research-block::after{
+  background:
+    linear-gradient(90deg,transparent 0 12%,rgba(214,209,204,.08) 12.08%,transparent 12.16%),
+    linear-gradient(0deg,transparent 0 44%,rgba(214,209,204,.07) 44.08%,transparent 44.16%);
+}
+.research-wall{
+  padding:18px 0 0;
+}
+.research-wall .editorial-image{
+  padding:30px 10px 10px 30px;
+}
+.research-wall .editorial-image::before{
+  content:"SKETCH / NOTE";
+  position:absolute;
+  left:0;
+  top:12px;
+  color:rgba(214,209,204,.28);
+  font-size:9px;
+  letter-spacing:.16em;
+}
+
+/* Number labels: registration marks, not stickers. */
+.editorial-image .image-code{
+  background:transparent!important;
+  border:0!important;
+  color:var(--red-bright);
+  padding:0!important;
+  min-width:auto!important;
+  font-size:12px!important;
+}
+.editorial-image .image-code::before{
+  content:"No.";
+  color:rgba(214,209,204,.42);
+  margin-right:4px;
+}
+.editorial-image::after{
+  content:"";
+  position:absolute;
+  left:0;
+  top:18px;
+  width:10px;
+  height:1px;
+  background:rgba(214,209,204,.42);
+}
+
+/* Detail views: parent/detail relation becomes a diagram. */
+.art-viewer .detail-preview-panel{
+  position:relative;
+  padding-left:18px;
+}
+.art-viewer .detail-preview-panel::before{
+  content:"";
+  position:absolute;
+  left:4px;
+  top:28px;
+  bottom:12px;
+  width:1px;
+  background:linear-gradient(to bottom,rgba(214,209,204,.38),var(--red-glow),rgba(214,209,204,.10));
+}
+.art-viewer .detail-thumb{
+  position:relative;
+}
+.art-viewer .detail-thumb::before{
+  content:"";
+  position:absolute;
+  left:-18px;
+  top:50%;
+  width:16px;
+  height:1px;
+  background:rgba(214,209,204,.34);
+}
+.art-viewer .detail-thumb.active::before{
+  background:var(--red-bright);
+  box-shadow:0 0 10px var(--red-glow);
+}
+
+/* Work pages: printed plate / caption field */
+.work-image-stage{
+  position:relative;
+}
+.work-image-stage::before{
+  content:"IMAGE PLATE";
+  position:absolute;
+  left:18px;
+  top:14px;
+  color:rgba(214,209,204,.24);
+  font-size:10px;
+  letter-spacing:.18em;
+}
+.work-info-panel{
+  background:
+    linear-gradient(90deg,rgba(255,255,255,.018),transparent),
+    #050506;
+  padding-right:18px;
+}
+.work-detail-views{
+  position:relative;
+}
+.work-detail-views::before{
+  content:"DETAIL INDEX";
+  position:absolute;
+  right:0;
+  top:24px;
+  color:rgba(214,209,204,.24);
+  font-size:10px;
+  letter-spacing:.18em;
+}
+
+/* Image Index: make it feel like a contact sheet / print proof. */
+.archive-index-grid{
+  background:rgba(214,209,204,.08);
+  gap:1px;
+  padding:1px;
+}
+.archive-index-item{
+  border:0;
+  background:#050506;
+}
+.archive-index-item img{
+  aspect-ratio:4/3;
+  object-fit:contain;
+  background:#0b0b0c;
+}
+
+/* Subtle color sparks only as line-fragments, never random dots. */
+@media(max-width:760px){
+  .site-editorial::after,
+  .academic-redesign::after,
+  .work-page::after{
+    display:none;
+  }
+  .print-wall{padding:10px}
+  .drawing-wall .editorial-image:nth-child(n){
+    transform:none;
+  }
+}
