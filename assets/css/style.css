@@ -1878,3 +1878,247 @@ html[lang="en"] .work-desc.lang-en{
   .work-image-stage{padding:10px;min-height:42vh}
   .archive-index-overlay{padding:20px}
 }
+
+
+/* ===== V13 strict coordinate intersections + richer background motion ===== */
+
+/* Remove old free-floating glow dots. Nodes are now real intersections of visible lines. */
+.site-field::before{
+  background:none!important;
+  animation:none!important;
+}
+
+/* Keep the base irregular line texture, but make it secondary behind the real coordinate system. */
+.site-field{
+  opacity:.58;
+}
+
+/* Real coordinate system overlay.
+   Every glowing point is placed by JS at an actual vertical/horizontal line intersection. */
+.coordinate-field{
+  position:fixed;
+  inset:-4vh -4vw;
+  z-index:-1;
+  pointer-events:none;
+  overflow:hidden;
+  opacity:.82;
+  mix-blend-mode:screen;
+  transform:translate3d(0,0,0);
+  animation:coordinateDrift 12s ease-in-out infinite alternate;
+}
+
+.coordinate-field::before,
+.coordinate-field::after{
+  content:"";
+  position:absolute;
+  pointer-events:none;
+}
+
+/* soft scan beams: enrich the NASA/observation feeling without replacing the line system */
+.coordinate-field::before{
+  left:-20%;
+  right:-20%;
+  top:34%;
+  height:1px;
+  background:linear-gradient(90deg,transparent,rgba(230,226,222,.22),var(--red-glow),rgba(230,226,222,.16),transparent);
+  opacity:.55;
+  animation:scanHorizontal 8.5s linear infinite;
+}
+
+.coordinate-field::after{
+  top:-25%;
+  bottom:-25%;
+  left:72%;
+  width:1px;
+  background:linear-gradient(180deg,transparent,rgba(230,226,222,.18),var(--red-glow),rgba(230,226,222,.12),transparent);
+  opacity:.45;
+  animation:scanVertical 10.5s linear infinite;
+}
+
+.coord-line{
+  position:absolute;
+  background:rgba(226,222,218,.22);
+  box-shadow:0 0 14px rgba(226,222,218,.035);
+}
+
+.coord-line.vertical{
+  top:0;
+  bottom:0;
+  width:1px;
+  transform:translateX(-.5px);
+}
+
+.coord-line.horizontal{
+  left:0;
+  right:0;
+  height:1px;
+  transform:translateY(-.5px);
+}
+
+.coord-line.major{
+  background:rgba(236,233,230,.42);
+  box-shadow:
+    0 0 18px rgba(236,233,230,.10),
+    0 0 1px rgba(236,233,230,.65);
+}
+
+.coord-line.minor{
+  background:rgba(226,222,218,.12);
+}
+
+.coord-line.segment::before,
+.coord-line.segment::after{
+  content:"";
+  position:absolute;
+  background:rgba(226,222,218,.38);
+  opacity:.6;
+}
+
+.coord-line.vertical.segment::before{
+  top:12%;
+  height:11%;
+  left:0;
+  width:1px;
+}
+.coord-line.vertical.segment::after{
+  bottom:18%;
+  height:7%;
+  left:0;
+  width:1px;
+}
+.coord-line.horizontal.segment::before{
+  left:8%;
+  width:10%;
+  top:0;
+  height:1px;
+}
+.coord-line.horizontal.segment::after{
+  right:13%;
+  width:7%;
+  top:0;
+  height:1px;
+}
+
+/* Intersections: exact left/top match the visible vertical/horizontal lines. */
+.coord-node{
+  position:absolute;
+  width:6px;
+  height:6px;
+  border-radius:50%;
+  transform:translate(-50%,-50%);
+  background:var(--red-bright);
+  opacity:.10;
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,.08),
+    0 0 10px var(--red-glow),
+    0 0 24px var(--red-glow);
+  animation:intersectionPulse 5.6s ease-in-out infinite;
+}
+
+.coord-node::before,
+.coord-node::after{
+  content:"";
+  position:absolute;
+  left:50%;
+  top:50%;
+  transform:translate(-50%,-50%);
+  border-radius:50%;
+  pointer-events:none;
+}
+
+.coord-node::before{
+  width:16px;
+  height:16px;
+  border:1px solid var(--red-glow);
+  opacity:.30;
+}
+
+.coord-node::after{
+  width:2px;
+  height:2px;
+  background:#fff3f3;
+  opacity:.55;
+}
+
+.coord-node.major{
+  width:7px;
+  height:7px;
+  opacity:.18;
+  animation-name:intersectionPulseMajor;
+}
+
+.coord-node.minor{
+  width:4px;
+  height:4px;
+  opacity:.07;
+  box-shadow:0 0 12px var(--red-glow);
+}
+
+/* tiny coordinate ticks around major intersections */
+.coord-node.major .tick-x,
+.coord-node.major .tick-y{
+  position:absolute;
+  display:block;
+  background:rgba(226,222,218,.25);
+  pointer-events:none;
+}
+
+.coord-node.major .tick-x{
+  left:-18px;
+  right:-18px;
+  top:50%;
+  height:1px;
+  transform:translateY(-50%);
+}
+
+.coord-node.major .tick-y{
+  top:-18px;
+  bottom:-18px;
+  left:50%;
+  width:1px;
+  transform:translateX(-50%);
+}
+
+@keyframes coordinateDrift{
+  from{transform:translate3d(-10px,-8px,0)}
+  to{transform:translate3d(12px,10px,0)}
+}
+
+@keyframes scanHorizontal{
+  0%{transform:translateY(-38vh);opacity:0}
+  12%{opacity:.42}
+  52%{opacity:.62}
+  100%{transform:translateY(52vh);opacity:0}
+}
+
+@keyframes scanVertical{
+  0%{transform:translateX(-48vw);opacity:0}
+  18%{opacity:.34}
+  58%{opacity:.50}
+  100%{transform:translateX(36vw);opacity:0}
+}
+
+@keyframes intersectionPulse{
+  0%,22%,100%{opacity:.06;filter:brightness(.75);transform:translate(-50%,-50%) scale(.72)}
+  36%{opacity:.18;filter:brightness(1.1);transform:translate(-50%,-50%) scale(.92)}
+  48%{opacity:.34;filter:brightness(1.75);transform:translate(-50%,-50%) scale(1.18)}
+  62%{opacity:.13;filter:brightness(.95);transform:translate(-50%,-50%) scale(.85)}
+}
+
+@keyframes intersectionPulseMajor{
+  0%,18%,100%{opacity:.10;filter:brightness(.85);transform:translate(-50%,-50%) scale(.78)}
+  34%{opacity:.30;filter:brightness(1.35);transform:translate(-50%,-50%) scale(1)}
+  46%{opacity:.70;filter:brightness(2);transform:translate(-50%,-50%) scale(1.28)}
+  68%{opacity:.18;filter:brightness(1);transform:translate(-50%,-50%) scale(.92)}
+}
+
+@media (prefers-reduced-motion: reduce){
+  .coordinate-field,
+  .coordinate-field::before,
+  .coordinate-field::after,
+  .coord-node{
+    animation:none!important;
+  }
+  .coord-node.major{opacity:.28}
+  .coord-node.minor{opacity:.10}
+}

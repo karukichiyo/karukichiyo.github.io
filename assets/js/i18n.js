@@ -375,6 +375,76 @@ function initWorkPageDetails(){
   }));
 }
 
+
+function initCoordinateField(){
+  if(document.querySelector('.coordinate-field'))return;
+
+  const field=document.createElement('div');
+  field.className='coordinate-field';
+  field.setAttribute('aria-hidden','true');
+
+  // Non-even line positions: visible structure is irregular, not a uniform grid.
+  const vertical=[
+    {x:7.8, major:true, segment:true},
+    {x:18.6, major:false, segment:false},
+    {x:31.4, major:true, segment:true},
+    {x:46.8, major:false, segment:true},
+    {x:63.2, major:true, segment:false},
+    {x:78.5, major:false, segment:true},
+    {x:91.4, major:true, segment:false}
+  ];
+  const horizontal=[
+    {y:12.7, major:false, segment:true},
+    {y:24.9, major:true, segment:false},
+    {y:43.6, major:false, segment:true},
+    {y:61.8, major:true, segment:true},
+    {y:76.5, major:false, segment:false},
+    {y:88.9, major:true, segment:true}
+  ];
+
+  vertical.forEach((line,i)=>{
+    const el=document.createElement('i');
+    el.className=`coord-line vertical ${line.major?'major':'minor'} ${line.segment?'segment':''}`;
+    el.style.left=`${line.x}%`;
+    el.style.animationDelay=`${i*.37}s`;
+    field.appendChild(el);
+  });
+
+  horizontal.forEach((line,i)=>{
+    const el=document.createElement('i');
+    el.className=`coord-line horizontal ${line.major?'major':'minor'} ${line.segment?'segment':''}`;
+    el.style.top=`${line.y}%`;
+    el.style.animationDelay=`${i*.41}s`;
+    field.appendChild(el);
+  });
+
+  // Nodes are generated only at intersections of those same lines.
+  // Major intersections use at least one major line; minor intersections remain quieter.
+  vertical.forEach((v,vi)=>{
+    horizontal.forEach((h,hi)=>{
+      const node=document.createElement('i');
+      const isMajor=v.major && h.major;
+      const isSecondary=v.major || h.major;
+      node.className=`coord-node ${isMajor?'major':isSecondary?'':'minor'}`;
+      node.style.left=`${v.x}%`;
+      node.style.top=`${h.y}%`;
+      node.style.animationDelay=`${((vi*0.73)+(hi*0.51))%5.4}s`;
+      if(isMajor){
+        const tx=document.createElement('span');
+        tx.className='tick-x';
+        const ty=document.createElement('span');
+        ty.className='tick-y';
+        node.appendChild(tx);
+        node.appendChild(ty);
+      }
+      field.appendChild(node);
+    });
+  });
+
+  document.body.appendChild(field);
+}
+
+
 document.addEventListener('DOMContentLoaded',()=>{
   const y=document.getElementById('year');
   if(y)y.textContent=new Date().getFullYear();
@@ -389,4 +459,5 @@ document.addEventListener('DOMContentLoaded',()=>{
   initArchiveIndex();
   initRandomAccess();
   initWorkPageDetails();
+  initCoordinateField();
 });
