@@ -4508,3 +4508,45 @@ html body .crystal-header-v21 .language-switch button[aria-pressed="true"]::befo
     height:30px!important;
   }
 }
+
+
+/* ===== V22: refined header edge + language anti-flash support ===== */
+
+/* If inline anti-flash runs before CSS, this prevents Firefox from briefly painting default text. */
+html.lang-pending body{
+  visibility:hidden!important;
+}
+
+/* The previous crystal fracture edge was too heavy. This is a finer mineral seam. */
+html body .crystal-header-v21::after{
+  content:""!important;
+  position:absolute!important;
+  left:clamp(20px,3vw,52px)!important;
+  right:clamp(20px,3vw,52px)!important;
+  bottom:-2px!important;
+  height:6px!important;
+  pointer-events:none!important;
+  opacity:.78!important;
+  background:
+    linear-gradient(90deg,rgba(226,222,218,.20),rgba(226,222,218,.34) 12%,transparent 12.2% 26%,rgba(226,222,218,.22) 26.2%,transparent 26.45%),
+    linear-gradient(118deg,transparent 0 41.5%,rgba(226,222,218,.30) 41.65%,transparent 42.1%),
+    linear-gradient(62deg,transparent 0 67.8%,rgba(226,222,218,.24) 67.95%,transparent 68.35%),
+    linear-gradient(90deg,transparent 0 76%,var(--red-glow) 76.12%,transparent 76.55%),
+    linear-gradient(90deg,transparent,rgba(226,222,218,.18),transparent)!important;
+  filter:drop-shadow(0 0 3px rgba(226,222,218,.08))!important;
+}
+
+/* A thinner secondary edge, like a polished mineral layer rather than a UI underline. */
+html body .crystal-header-v21{
+  box-shadow:
+    0 1px 0 rgba(226,222,218,.10),
+    0 8px 0 -7px rgba(226,222,218,.16),
+    0 20px 42px rgba(0,0,0,.34)!important;
+}
+
+/* Keep active language crystal readable after JS updates aria-pressed. */
+html body .crystal-header-v21 .language-switch button.active,
+html body .crystal-header-v21 .language-switch button[aria-pressed="true"]{
+  color:#fff!important;
+  text-shadow:0 0 10px var(--red-glow)!important;
+}

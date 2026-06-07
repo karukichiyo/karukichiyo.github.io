@@ -7,12 +7,20 @@ const dict={
 function applyLang(lang){
   const data=dict[lang]||dict.zh;
   document.documentElement.lang=lang==='ja'?'ja':lang==='en'?'en':'zh';
+  document.documentElement.dataset.lang=lang;
   document.querySelectorAll('[data-i18n]').forEach(el=>{
     const key=el.dataset.i18n;
     if(data[key]) el.textContent=data[key];
   });
-  document.querySelectorAll('[data-lang]').forEach(btn=>btn.classList.toggle('active',btn.dataset.lang===lang));
+  if(typeof applyV19StaticLang==='function') applyV19StaticLang(lang);
+  document.querySelectorAll('[data-lang]').forEach(btn=>{
+    const active=btn.dataset.lang===lang;
+    btn.classList.toggle('active',active);
+    btn.setAttribute('aria-pressed',active?'true':'false');
+  });
   localStorage.setItem('siteLang',lang);
+  document.documentElement.classList.remove('lang-pending');
+  document.documentElement.classList.add('lang-ready');
 }
 
 function initFilters(){
@@ -583,10 +591,94 @@ function initV19Chronology(){
 }
 
 
+
+const v19Static={
+  zh:{
+    homeManifesto:'一个整理油画、数字图像、原创角色与制作记录的个人创作档案。',
+    homeMeta:'SELECTED LARGE-SCALE PAINTINGS / 33 · 35 · 37 · 38 · 41',
+    selectedMonths:'selected months',
+    academicCoverTitle:'学院档案',
+    academicCoverIntro:'东京造形大学期间的油画、课程项目、研究记录与作品说明。',
+    largeTitle:'大型作品',
+    largeDesc:'油画与丙烯的大型作品。39、40 是 38 的局部，43 是 37 的局部。主列表按创作时间排列。',
+    courseTitle:'课程项目',
+    courseDesc:'铜版画选修课作品，以及大二课题「１千枚ドローイング」中的精选 drawing。',
+    researchTitle:'研究记录',
+    researchDesc:'草图、结构尝试、构思记录。04 与 42 相关，其余为研究记录。',
+    byMonth:'by month',
+    sortOldNew:'OLD → NEW',
+    sortNewOld:'NEW → OLD'
+  },
+  ja:{
+    homeManifesto:'油画、デジタルイメージ、オリジナルキャラクター、制作記録を整理する個人アーカイブ。',
+    homeMeta:'SELECTED LARGE-SCALE PAINTINGS / 33 · 35 · 37 · 38 · 41',
+    selectedMonths:'selected months',
+    academicCoverTitle:'学院アーカイブ',
+    academicCoverIntro:'東京造形大学で制作した油画、授業課題、研究記録、作品説明を整理している。',
+    largeTitle:'大型作品',
+    largeDesc:'油画とアクリルによる大型作品。39、40 は 38 の局部、43 は 37 の局部。メインリストは制作時期順に並べている。',
+    courseTitle:'授業課題',
+    courseDesc:'銅版画の選修授業作品と、大学2年次の課題「１千枚ドローイング」から選んだ drawing。',
+    researchTitle:'研究記録',
+    researchDesc:'スケッチ、構造の試み、構想記録。04 は 42 に関係し、そのほかは研究記録として整理している。',
+    byMonth:'by month',
+    sortOldNew:'OLD → NEW',
+    sortNewOld:'NEW → OLD'
+  },
+  en:{
+    homeManifesto:'A personal archive for oil painting, digital images, original characters, and process records.',
+    homeMeta:'SELECTED LARGE-SCALE PAINTINGS / 33 · 35 · 37 · 38 · 41',
+    selectedMonths:'selected months',
+    academicCoverTitle:'Academic Archive',
+    academicCoverIntro:'Oil paintings, course projects, research notes, and work descriptions made during studies at Tokyo Zokei University.',
+    largeTitle:'Large-scale Paintings',
+    largeDesc:'Large-scale oil and acrylic works. 39 and 40 are details from 38; 43 is a detail from 37. The main list is arranged chronologically.',
+    courseTitle:'Course Projects',
+    courseDesc:'Etching works from an elective printmaking course and selected drawings from the sophomore project “One Thousand Drawings”.',
+    researchTitle:'Research Notes',
+    researchDesc:'Sketches, structural experiments, and concept records. 04 is related to 42; the others are organized as research notes.',
+    byMonth:'by month',
+    sortOldNew:'OLD → NEW',
+    sortNewOld:'NEW → OLD'
+  }
+};
+
+function setText(selector,text){
+  const el=document.querySelector(selector);
+  if(el && text) el.textContent=text;
+}
+
+function applyV19StaticLang(lang){
+  const data=v19Static[lang]||v19Static.zh;
+  setText('.home-manifesto-v19',data.homeManifesto);
+  setText('.home-meta-v19',data.homeMeta);
+  setText('.month-board-head-v19 h2',data.selectedMonths);
+  setText('.academic-cover-v19 h1',data.academicCoverTitle);
+  const acIntro=document.querySelector('.academic-cover-v19 p:not(.eyebrow)');
+  if(acIntro) acIntro.textContent=data.academicCoverIntro;
+  setText('#large-works .section-title-v19 h2',data.largeTitle);
+  const largeDesc=document.querySelector('#large-works .section-title-v19 p:last-child');
+  if(largeDesc) largeDesc.textContent=data.largeDesc;
+  setText('#course-projects .section-title-v19 h2',data.courseTitle);
+  const courseDesc=document.querySelector('#course-projects .section-title-v19 p:last-child');
+  if(courseDesc) courseDesc.textContent=data.courseDesc;
+  setText('#research-notes .section-title-v19 h2',data.researchTitle);
+  const researchDesc=document.querySelector('#research-notes .section-title-v19 p:last-child');
+  if(researchDesc) researchDesc.textContent=data.researchDesc;
+  setText('.chronology-head-v19 h2',data.byMonth);
+  const sort=document.querySelector('.chrono-sort-toggle b');
+  if(sort){
+    const pressed=document.querySelector('.chrono-sort-toggle')?.getAttribute('aria-pressed')==='true';
+    sort.textContent=pressed?data.sortNewOld:data.sortOldNew;
+  }
+}
+
+
 document.addEventListener('DOMContentLoaded',()=>{
   const y=document.getElementById('year');
   if(y)y.textContent=new Date().getFullYear();
-  applyLang(localStorage.getItem('siteLang')||'zh');
+  try{applyLang(localStorage.getItem('siteLang')||'zh');}
+  catch(e){document.documentElement.classList.remove('lang-pending');console.error(e);}
   document.querySelectorAll('[data-lang]').forEach(btn=>btn.addEventListener('click',()=>applyLang(btn.dataset.lang)));
   initFilters();
   initMenu();
@@ -603,3 +695,5 @@ document.addEventListener('DOMContentLoaded',()=>{
   initChronologyEntryJump();
   initChronologySortToggle();
 });
+
+window.addEventListener('pageshow',()=>{try{applyLang(localStorage.getItem('siteLang')||'zh');}catch(e){document.documentElement.classList.remove('lang-pending');}});
